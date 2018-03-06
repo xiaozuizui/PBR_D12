@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="head">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="head\D12APP">
+      <UniqueIdentifier>{27a6f6e3-47a2-436a-a989-448fa31aed4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\D12APP">
+      <UniqueIdentifier>{b43b44f7-749e-49ca-958c-80a0603f2282}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="PBR_d12.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dApp.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dUtil.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="PBR_d12.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dApp.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="d3dUtil.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PBR_d12.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="PBR_d12.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
