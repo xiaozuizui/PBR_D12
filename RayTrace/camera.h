@@ -31,8 +31,8 @@ public:
 class PerspectiveCamera :Camera
 {
 public:
-	PerspectiveCamera(XMFLOAT4X4 cam2world , float screenWindow[4], float sopen, float sclose, float fov, Film *film);
-	float GenerateRay(CameraSample sample, Ray ray);
+	PerspectiveCamera(XMFLOAT4X4 &cam2world , float screenWindow[4], float sopen, float sclose, float fov, Film *film);
+	float GenerateRay(CameraSample &sample, Ray* ray);
 private:
 	XMFLOAT4X4 CameraToScreen, RasterToCamera;
 	XMFLOAT4X4 ScreenToRaster, RasterToScreen;
