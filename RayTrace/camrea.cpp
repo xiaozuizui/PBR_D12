@@ -42,12 +42,13 @@ float PerspectiveCamera::GenerateRay(CameraSample& sample, Ray* ray)
 {
 	XMMATRIX Temp_SamplePoint = XMLoadFloat4x4(&RasterToCamera)*XMMATRIX(
 		1,0,0,sample.imageX,
-		0,1,0,sample.imageY,
+		0,1,0,sample.imageY,																																																						
 		0,0,1,0,
 		0,0,0,1
 	);
 	XMFLOAT4X4 temp;
 	XMStoreFloat4x4(&temp, Temp_SamplePoint);
 	XMFLOAT3 SamplePoint(temp._14, temp._24, temp._34);
+	ray = &Ray(XMFLOAT3(0.0, 0.0, 0.0), SamplePoint);
 	return 0.0f;
 }
