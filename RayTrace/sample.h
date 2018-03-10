@@ -1,7 +1,11 @@
 #pragma once
+#ifndef LITTLEMM_SAMPLE
+#define LITTLEMM_SAMPLE
+
 
 struct CameraSample
 {
+public:
 	float imageX, imageY;
 	float lensU, lensV;
 	float time;
@@ -15,3 +19,5 @@ public:
 	~Sample();
 };
 
+
+#endif // !LITTLEMM_SAMPLE

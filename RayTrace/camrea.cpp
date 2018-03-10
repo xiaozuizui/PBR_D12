@@ -15,11 +15,8 @@ PerspectiveCamera::PerspectiveCamera(XMFLOAT4X4& cam2world, float screenWindow[4
 {
 
 	//透视投影矩阵
-	CameraToScreen = XMFLOAT4X4(1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, fov / (fov - 0.0001), -fov * 0.0001 / (fov - 0.0001),
-		0, 0, 1, 0);
-
+	XMStoreFloat4x4(&CameraToScreen,Perspective(fov, 1e-2f, 1000.0f));
+	 
 
 	//计算屏幕坐标（NDC）到光栅坐标的变换矩阵
 	XMMATRIX Temp_ScreenToRaster = XMMatrixScaling(film->xResolution, film->yResolution, 1)*
@@ -38,7 +35,8 @@ PerspectiveCamera::PerspectiveCamera(XMFLOAT4X4& cam2world, float screenWindow[4
 
 }
 
-float PerspectiveCamera::GenerateRay(CameraSample& sample, Ray* ray)
+
+ float  PerspectiveCamera::GenerateRay(const CameraSample& sample, Ray* ray) const
 {
 	XMMATRIX Temp_SamplePoint = XMLoadFloat4x4(&RasterToCamera)*XMMATRIX(
 		1,0,0,sample.imageX,
@@ -49,6 +47,8 @@ float PerspectiveCamera::GenerateRay(CameraSample& sample, Ray* ray)
 	XMFLOAT4X4 temp;
 	XMStoreFloat4x4(&temp, Temp_SamplePoint);
 	XMFLOAT3 SamplePoint(temp._14, temp._24, temp._34);
+	
+	XMStoreFloat3(&SamplePoint, XMVector3Normalize(XMLoadFloat3(&SamplePoint)));
 	ray = &Ray(XMFLOAT3(0.0, 0.0, 0.0), SamplePoint);
 	return 0.0f;
 }

@@ -2,8 +2,10 @@
 
 
 
-Film::Film()
+Film::Film(int x,int y)
 {
+	xResolution = x;
+	yResolution = y;	
 }
 
 
