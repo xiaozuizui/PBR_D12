@@ -13,6 +13,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="head\sphere">
+      <UniqueIdentifier>{37386a77-0a40-4b5f-b534-f87896a25fd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\sphere">
+      <UniqueIdentifier>{8695239b-b81d-4506-b3e0-aabc1d5460ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.h">
@@ -40,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="sample.h">
       <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="shape.h">
+      <Filter>source\sphere</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

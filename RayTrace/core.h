@@ -30,14 +30,12 @@ public:
 
 XMMATRIX Perspective(float fov, float n, float f)
 {
-
-
-	float invTanAng = 1.0f / tanf((fov*3.1415926 / 180) / 2.0f);
+	float invTanAng = 1.0f / tanf((fov*3.1415926f / 180.0f) / 2.0f);
 	return XMMatrixScaling(invTanAng, invTanAng, 1)*XMLoadFloat4x4(&XMFLOAT4X4(1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, f / (f - n), -f * n / (f - n),
 		0, 0, 1, 0));
-
 }
+
 
 #endif // !LITTLEMM_CORE

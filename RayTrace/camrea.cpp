@@ -21,15 +21,15 @@ PerspectiveCamera::PerspectiveCamera(XMFLOAT4X4& cam2world, float screenWindow[4
 	//计算屏幕坐标（NDC）到光栅坐标的变换矩阵
 	XMMATRIX Temp_ScreenToRaster = XMMatrixScaling(film->xResolution, film->yResolution, 1)*
 		XMMatrixScaling(1.f / (screenWindow[1] - screenWindow[0]), 1.f / (screenWindow[2] - screenWindow[3]), 1.f)*
-		XMMatrixTranslation(-screenWindow[0], -screenWindow[3], 0.f);
+		XMMatrixTranspose( XMMatrixTranslation(-screenWindow[0], -screenWindow[3], 0.f));
 	XMStoreFloat4x4(&ScreenToRaster, Temp_ScreenToRaster);
 
 	//计算光栅到NDC的变换矩阵
-	XMMATRIX Temp_RasterToScreen = XMMatrixInverse(nullptr, Temp_ScreenToRaster);
+	XMMATRIX Temp_RasterToScreen =  XMMatrixInverse(nullptr, Temp_ScreenToRaster);
 	XMStoreFloat4x4(&RasterToScreen, Temp_RasterToScreen);
 	
 	//计算光栅到相机空间的坐标变换矩阵
-	XMMATRIX Temp_RasterToCamera = Temp_RasterToScreen * XMMatrixInverse(nullptr,XMLoadFloat4x4(&CameraToScreen));
+	XMMATRIX Temp_RasterToCamera = XMMatrixInverse(nullptr, XMLoadFloat4x4(&CameraToScreen))*Temp_RasterToScreen ;
 	XMStoreFloat4x4(&RasterToCamera, Temp_RasterToCamera);
 
 
