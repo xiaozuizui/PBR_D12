@@ -2,13 +2,30 @@
 #ifndef LITTLEMM_CORE
 #define LITTLEMM_CORE
 
+#define M_PI 3.1415926f
 
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
-
+#include <random>
+#include <iostream>
 
 using namespace DirectX;
 
+#pragma region testSphere
+
+enum Refl_t
+{
+	DIFF,SPEC,REFR
+};
+
+std::default_random_engine generator;
+std::uniform_real_distribution<float> distr(0.0f, 1.0f);
+
+float erand48(unsigned short X)
+{
+	return distr(generator);
+}
+#pragma endregion
 
 
 class Ray
@@ -37,5 +54,9 @@ XMMATRIX Perspective(float fov, float n, float f)
 		0, 0, 1, 0));
 }
 
+//test radiance
+
+//if (!Quadratic(A, B, C, &t0, &t1));
+//bool Quadratic();
 
 #endif // !LITTLEMM_CORE

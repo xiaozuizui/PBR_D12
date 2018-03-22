@@ -130,12 +130,16 @@
     <ClCompile Include="core.h" />
     <ClCompile Include="Film.cpp" />
     <ClCompile Include="sample.cpp" />
+    <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="Film.h" />
     <ClInclude Include="sample.h" />
+    <ClInclude Include="shape.cpp" />
     <ClInclude Include="shape.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
