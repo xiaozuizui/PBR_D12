@@ -8,6 +8,7 @@
 #include <DirectXPackedVector.h>
 #include <random>
 #include <iostream>
+#include <math.h>
 
 using namespace DirectX;
 
