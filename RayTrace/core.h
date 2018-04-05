@@ -60,4 +60,7 @@ XMMATRIX Perspective(float fov, float n, float f)
 //if (!Quadratic(A, B, C, &t0, &t1));
 //bool Quadratic();
 
+inline double clamp(double x) { return x<0 ? 0 : x>1 ? 1 : x; }
+inline int toInt(double x) { return int(pow(clamp(x), 1 / 2.2) * 255 + .5); }
+
 #endif // !LITTLEMM_CORE

@@ -5,12 +5,8 @@
 
 
 
+inline bool Intersect(const Ray &r, float &t, int &id);
 
-inline bool Intersect(const Ray &r, float &t, int &id) {
-	double n = sizeof(TestSpheres) / sizeof(TestSphere), d, inf = t = 1e20;
-	for (int i = int(n); i--;) if ((d = TestSpheres[i].Intersect(r)) && d<t) { t = d; id = i; }
-	return t<inf;
-}
 
 class TestSphere
 {
@@ -39,12 +35,12 @@ public:
 };
 
 TestSphere TestSpheres[] = {//Scene: radius, position, emission, color, material 
-	TestSphere(1e5f, XMFLOAT3(1e5f + 1,40.8f,81.6f), XMFLOAT3(),XMFLOAT3(.75f,.25f,.25f),DIFF),//Left 
-	TestSphere(1e5f, XMFLOAT3(-1e5 + 99,40.8,81.6),XMFLOAT3(),XMFLOAT3(.25,.25,.75),DIFF),//Rght 
-	TestSphere(1e5f, XMFLOAT3(50,40.8, 1e5),     XMFLOAT3(),XMFLOAT3(.75,.75,.75),DIFF),//Back 
-	TestSphere(1e5f, XMFLOAT3(50,40.8,-1e5 + 170), XMFLOAT3(),XMFLOAT3(),           DIFF),//Frnt 
-	TestSphere(1e5f, XMFLOAT3(50, 1e5, 81.6),    XMFLOAT3(),XMFLOAT3(.75,.75,.75),DIFF),//Botm 
-	TestSphere(1e5f, XMFLOAT3(50,-1e5 + 81.6,81.6),XMFLOAT3(),XMFLOAT3(.75,.75,.75),DIFF),//Top 
+	TestSphere(1e5f, XMFLOAT3(1e5f + 1,40.8f,81.6f), XMFLOAT3(0,0,0),XMFLOAT3(.75f,.25f,.25f),DIFF),//Left 
+	TestSphere(1e5f, XMFLOAT3(-1e5 + 99,40.8,81.6),XMFLOAT3(0,0,0),XMFLOAT3(.25,.25,.75),DIFF),//Rght 
+	TestSphere(1e5f, XMFLOAT3(50,40.8, 1e5),     XMFLOAT3(0,0,0),XMFLOAT3(.75,.75,.75),DIFF),//Back 
+	TestSphere(1e5f, XMFLOAT3(50,40.8,-1e5 + 170), XMFLOAT3(0,0,0),XMFLOAT3(),           DIFF),//Frnt 
+	TestSphere(1e5f, XMFLOAT3(50, 1e5, 81.6),    XMFLOAT3(0,0,0),XMFLOAT3(.75,.75,.75),DIFF),//Botm 
+	TestSphere(1e5f, XMFLOAT3(50,-1e5 + 81.6,81.6),XMFLOAT3(0,0,0),XMFLOAT3(.75,.75,.75),DIFF),//Top 
 	//TestSphere(16.5f,XMFLOAT3(27,16.5,47),       XMFLOAT3(),XMFLOAT3(1,1,1), SPEC),//Mirr 
 	//TestSphere(16.5f,XMFLOAT3(73,16.5,78),       XMFLOAT3(),XMFLOAT3(1,1,1), REFR),//Glas 
 	TestSphere(600, XMFLOAT3(50,681.6 - .27,81.6),XMFLOAT3(12,12,12),  XMFLOAT3(), DIFF) //Lite 
@@ -128,7 +124,7 @@ XMVECTOR radiance(const Ray &r, int depth, unsigned short *Xi) {
 
 void Test()
 {
-	int w = 1024, h = 768, samps = 4; //  samples
+	int w = 512, h = 512, samps = 2; //  samples
 
 	XMFLOAT3 d(0, -0.042612, -1);
 	XMStoreFloat3(&d, XMVector3Normalize(XMLoadFloat3(&d)));
@@ -137,7 +133,8 @@ void Test()
 	//Vec cx = Vec(w*.5135 / h), cy = (cx%cam.d).norm()*.5135, r, *c = new Vec[w*h];
 	XMVECTOR cx = XMVectorSet(w*.5135 / h, 0, 0, 0);
 	XMVECTOR cy = XMVector3Normalize(XMVector3Cross(cx, XMLoadFloat3(&cam.direction)))*.5135;
-	XMFLOAT3 *image = new XMFLOAT3[w*h];
+
+	XMVECTOR *image = new XMVECTOR[w*h];
 	XMFLOAT3 position;
 	//#pragma omp parallel for schedule(dynamic, 1) private(r)     // OpenMP 
 
@@ -146,16 +143,21 @@ void Test()
 
 		for (unsigned short x = 0, Xi[3] = { 0,0,y*y*y }; x < w; x++)   // Loop cols 
 
-			for (int sy = 0, i = (h - y - 1)*w + x; sy < 2; sy++)     // 2x2 subpixel rows 
-				for (int sx = 0; sx < 2; sx++) {        // 2x2 subpixel cols 
+			for (int sy = 0, i = (h - y - 1)*w + x; sy < 2; sy++)
+			{
+				image[i] = XMVectorZero();
+				// 2x2 subpixel rows 
+				for (int sx = 0; sx < 2; sx++)
+				{        // 2x2 subpixel cols 
 					XMVECTOR  r = XMVectorZero();
+
 					for (int s = 0; s < samps; s++)  //loop sample
 					{
 						float r1 = 2 * erand48(*Xi), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
 						float r2 = 2 * erand48(*Xi), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
 						rand();
 						XMVECTOR d = cx * (((sx + .5 + dx) / 2 + x) / w - .5) +
-							cy * (((sy + .5 + dy) / 2 + y) / h - .5) + XMLoadFloat3(& cam.direction);
+							cy * (((sy + .5 + dy) / 2 + y) / h - .5) + XMLoadFloat3(&cam.direction);
 
 						XMVECTOR R0 = XMLoadFloat3(&cam.origin) + d * 140;
 						XMVECTOR D0 = XMVector3Normalize(d);
@@ -165,16 +167,28 @@ void Test()
 
 						XMStoreFloat3(&r0, R0);
 						XMStoreFloat3(&d0, D0);
-						r = r + radiance(Ray(  r0  , d0       ), 0, Xi)*(1. / samps);
+						r = r + radiance(Ray(r0, d0), 0, Xi)*(1. / samps);
 					} // Camera rays are pushed ^^^^^ forward to start in interior 
 					XMFLOAT3 r_;
 					XMStoreFloat3(&r_, r);
-					image[i] = image[i] + Vec (clamp(r_.x), clamp(r_.y), clamp(r_.z))*.25;
-				}
 
-		FILE *f = fopen("image.ppm", "w");         // Write image to PPM file. 
-		fprintf(f, "P3\n%d %d\n%d\n", w, h, 255);
-		for (int i = 0; i < w*h; i++)
-			fprintf(f, "%d %d %d ", toInt(c[i].x), toInt(c[i].y), toInt(c[i].z));
+					image[i] = image[i] + XMVectorSet(clamp(r_.x), clamp(r_.y), clamp(r_.z), 0)*.25;
+				}
+			}
+			
 	}
+	FILE *f = fopen("image.ppm", "w");         // Write image to PPM file. 
+	fprintf(f, "P3\n%d %d\n%d\n", w, h, 255);
+	for (int i = 0; i < w*h; i++)
+	{
+		XMFLOAT3 temp;
+		XMStoreFloat3(&temp, image[i]);
+		fprintf(f, "%d %d %d ", toInt(temp.x), toInt(temp.y), toInt(temp.z));
+	}
+}
+
+inline bool Intersect(const Ray &r, float &t, int &id) {
+	double n = sizeof(TestSpheres) / sizeof(TestSphere), d, inf = t = 1e20;
+	for (int i = int(n); i--;) if ((d = TestSpheres[i].Intersect(r)) && d<t) { t = d; id = i; }
+	return t<inf;
 }
