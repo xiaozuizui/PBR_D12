@@ -19,6 +19,18 @@
     <Filter Include="source\shape">
       <UniqueIdentifier>{8695239b-b81d-4506-b3e0-aabc1d5460ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="head\bxdf">
+      <UniqueIdentifier>{224dd546-8d99-483e-a4fa-e6c0e9b06b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\bxdf">
+      <UniqueIdentifier>{41809798-b6a3-4029-b590-85e5a729fab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="head\render">
+      <UniqueIdentifier>{74097ce1-98cc-4f7f-b8ab-97b4c0a097da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\render">
+      <UniqueIdentifier>{5b4767a2-1ad0-495a-bde1-cfa3d10b4b9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core.h">
@@ -38,6 +50,24 @@
     </ClCompile>
     <ClCompile Include="sphere.cpp">
       <Filter>source\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="bxdf.h">
+      <Filter>head\bxdf</Filter>
+    </ClCompile>
+    <ClCompile Include="bxdf.cpp">
+      <Filter>source\bxdf</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>source\render</Filter>
+    </ClCompile>
+    <ClCompile Include="intersectioncpp.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="PathRender.cpp">
+      <Filter>source\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +91,18 @@
     </ClInclude>
     <ClInclude Include="test.h">
       <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>head\render</Filter>
+    </ClInclude>
+    <ClInclude Include="Intersection.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="PathRender.h">
+      <Filter>head\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#pragma once
+
 #ifndef  LITTLEMM_CAMERA
 #define LITTLEMM_CAMERA
 

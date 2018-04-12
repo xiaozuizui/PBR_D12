@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LITTLEMM_FILM
 #define LITTLEMM_FILM
 

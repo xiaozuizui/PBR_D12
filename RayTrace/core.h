@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LITTLEMM_CORE
 #define LITTLEMM_CORE
 
@@ -14,6 +13,7 @@ using namespace DirectX;
 
 #pragma region testSphere
 
+typedef XMFLOAT3 RGB_COLOR;
 enum Refl_t
 {
 	DIFF,SPEC,REFR
@@ -54,6 +54,7 @@ XMMATRIX Perspective(float fov, float n, float f)
 		0, 0, f / (f - n), -f * n / (f - n),
 		0, 0, 1, 0));
 }
+
 
 //test radiance
 

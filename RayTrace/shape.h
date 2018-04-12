@@ -1,4 +1,5 @@
-#pragma once
+
+
 #ifndef LITTLEMM_SHAPE
 #define LITTLEMM_SHAPE
 #include "core.h"

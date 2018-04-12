@@ -125,17 +125,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bxdf.cpp" />
+    <ClCompile Include="bxdf.h" />
     <ClCompile Include="camrea.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="core.h" />
     <ClCompile Include="Film.cpp" />
+    <ClCompile Include="intersectioncpp.cpp" />
+    <ClCompile Include="PathRender.cpp" />
+    <ClCompile Include="render.cpp" />
     <ClCompile Include="sample.cpp" />
+    <ClCompile Include="scene.cpp" />
     <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="Film.h" />
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="PathRender.h" />
+    <ClInclude Include="render.h" />
     <ClInclude Include="sample.h" />
+    <ClInclude Include="scene.h" />
     <ClInclude Include="shape.cpp" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="sphere.h" />
