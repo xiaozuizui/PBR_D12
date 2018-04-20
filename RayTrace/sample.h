@@ -20,4 +20,9 @@ public:
 };
 
 
+class Sampler
+{
+
+};
+
 #endif // !LITTLEMM_SAMPLE
