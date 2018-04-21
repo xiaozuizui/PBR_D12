@@ -104,5 +104,8 @@
     <ClInclude Include="PathRender.h">
       <Filter>head\render</Filter>
     </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>head</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

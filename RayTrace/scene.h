@@ -1,6 +1,8 @@
 #ifndef  LITTLEMM_SCENE
 #define LITTLEMM_SCENE
 
+
+
 class Scene
 {
 private:
@@ -10,13 +12,7 @@ public:
 
 };
 
-class Primitive
-{
-public:
-	Primitive():primitiveId()
-private:
-	uint32_t primitiveId;
-	static uint32_t nextprimitiveId;
-};
+
+
 #endif // ! LITTLEMM_SCENE
 

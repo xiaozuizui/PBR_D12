@@ -143,6 +143,7 @@
     <ClInclude Include="Film.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="PathRender.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="sample.h" />
     <ClInclude Include="scene.h" />
