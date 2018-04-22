@@ -24,12 +24,14 @@ bool Sphere::Intersection(Ray ray)
 		if (thit > ray.maxt) return false;
 	}
 
-	hit = ray.GetPoint(thit);
+	return true;
+
+	/*hit = ray.GetPoint(thit);
 
 	if (hit.x == 0.f && hit.y == 0.f) hit.x = 1e-5f * radius;
 	phit = atan2f(phit.y, phit.x);
 	if (phi < 0.) phi += 2.f*M_PI;
 
 
-	return false;
+	return false;*/
 }
