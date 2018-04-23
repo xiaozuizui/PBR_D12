@@ -17,6 +17,7 @@ public:
 private:
 	Shape * shape;
 	uint32_t primitiveId;
+	Primitive* next;
 	static uint32_t nextprimitiveId;
 }; 
 

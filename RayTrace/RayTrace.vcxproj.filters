@@ -69,6 +69,9 @@
     <ClCompile Include="PathRender.cpp">
       <Filter>source\render</Filter>
     </ClCompile>
+    <ClCompile Include="ImageFile.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -105,6 +108,9 @@
       <Filter>head\render</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageFile.h">
       <Filter>head</Filter>
     </ClInclude>
   </ItemGroup>

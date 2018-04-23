@@ -131,6 +131,7 @@
     <ClCompile Include="core.cpp" />
     <ClCompile Include="core.h" />
     <ClCompile Include="Film.cpp" />
+    <ClCompile Include="ImageFile.cpp" />
     <ClCompile Include="intersectioncpp.cpp" />
     <ClCompile Include="PathRender.cpp" />
     <ClCompile Include="render.cpp" />
@@ -141,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="Film.h" />
+    <ClInclude Include="ImageFile.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="PathRender.h" />
     <ClInclude Include="Primitive.h" />
