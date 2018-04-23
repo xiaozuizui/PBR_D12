@@ -1,11 +1,19 @@
 #pragma once
 
 #include "core.h"
-
-
-
+#include "sphere.h"
+#include "ImageFile.h"
+#include "Primitive.h"
+#include "scene.h"
 
 inline bool Intersect(const Ray &r, float &t, int &id);
+
+std::default_random_engine generator;
+std::uniform_real_distribution<float> distr(0.0f, 1.0f);
+inline float erand48(unsigned short X)
+{
+	return distr(generator);
+}
 
 
 class TestSphere
@@ -122,7 +130,7 @@ XMVECTOR radiance(const Ray &r, int depth, unsigned short *Xi) {
 	//	radiance(reflRay, depth, Xi)*Re + radiance(Ray(x, tdir), depth, Xi)*Tr);
 }
 
-void Test()
+inline void Test()
 {
 	int w = 512, h = 512, samps = 2; //  samples
 
@@ -185,6 +193,51 @@ void Test()
 		XMStoreFloat3(&temp, image[i]);
 		fprintf(f, "%d %d %d ", toInt(temp.x), toInt(temp.y), toInt(temp.z));
 	}
+}
+
+void TestN()
+{
+	XMFLOAT4X4 obj2world(1, 0, 0, -27, 0, 1, 0, 16.5, 0, 0, 1, 47, 0, 0, 0, 1);
+
+	Sphere s(obj2world, obj2world, 16.5);
+	Primitive p(&s);
+	Scene sc(1, &p);
+
+
+	int width = 512, height = 512;
+
+	ImageFile::Initial(width, height);
+
+	XMFLOAT3 d(0, -0.042612, -1);
+	XMStoreFloat3(&d, XMVector3Normalize(XMLoadFloat3(&d)));
+	Ray cam(XMFLOAT3(50, 52, 295.6), d); // cam pos, dir 
+	XMVECTOR cx = XMVectorSet(width*.5135 / height, 0, 0, 0);
+	XMVECTOR cy = XMVector3Normalize(XMVector3Cross(cx, XMLoadFloat3(&cam.direction)))*.5135;
+
+	for (int x = 0; x < width; x++)
+	{
+		unsigned int Xi[3] = { 0,0,x*x*x };
+		for (int y = 0; y < height; y++)
+		{
+			float r1 = 2 * erand48(*Xi), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+			float r2 = 2 * erand48(*Xi), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+			rand();
+			XMVECTOR d = cx * (((x + .5 + dx) / 2 + x) / width - .5) +
+				cy * (((y + .5 + dy) / 2 + y) / height - .5) + XMLoadFloat3(&cam.direction);
+
+			XMVECTOR R0 = XMLoadFloat3(&cam.origin) + d * 140;
+			XMVECTOR D0 = XMVector3Normalize(d);
+
+			XMFLOAT3 r0;
+			XMFLOAT3 d0;
+			Intersection p;
+			XMStoreFloat3(&r0, R0);
+			XMStoreFloat3(&d0, D0);
+			sc.Intersect(Ray(r0, d0), &p);
+			ImageFile::SavePi(RGB_COLOR(255, 255, 255), x*width + y);
+		}
+	}
+	ImageFile::SaveFile();
 }
 
 inline bool Intersect(const Ray &r, float &t, int &id) {

@@ -86,6 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>
@@ -134,6 +135,7 @@
     <ClCompile Include="ImageFile.cpp" />
     <ClCompile Include="intersectioncpp.cpp" />
     <ClCompile Include="PathRender.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="sample.cpp" />
     <ClCompile Include="scene.cpp" />

@@ -12,12 +12,12 @@ class Primitive
 {
 public:
 	Primitive(Shape* s) :primitiveId(nextprimitiveId++),shape(s) {}
-	void Intersect(const Ray &r, Intersection *p);
-
+	bool Intersect(const Ray &r, Intersection *p);
+	Primitive* next;
 private:
 	Shape * shape;
 	uint32_t primitiveId;
-	Primitive* next;
+	
 	static uint32_t nextprimitiveId;
 }; 
 

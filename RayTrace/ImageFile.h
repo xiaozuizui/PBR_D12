@@ -4,6 +4,7 @@
 
 class ImageFile
 {
+public:
 	static int width;
 	static int height;
 
@@ -17,4 +18,8 @@ class ImageFile
 	static void SavePi(RGB_COLOR color,int index);
 	static void SaveFile();
 };
+
+
+
+
 #endif // !LITTLEMM_IMAGEFILE

@@ -2,6 +2,7 @@
 #define LITTLEMM_SCENE
 
 #include "Primitive.h"
+#include "Intersection.h"
 
 class Scene
 {
@@ -9,7 +10,8 @@ private:
 	int NumOfSphere;
 	Primitive *firstPrimitive;
 public:
-	bool Intersect(Ray r);
+	Scene(int Num, Primitive *p);
+	bool Intersect(const Ray& r,Intersection *p);
 
 };
 

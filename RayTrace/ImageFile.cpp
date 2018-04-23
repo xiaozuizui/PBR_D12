@@ -1,6 +1,12 @@
 #include "ImageFile.h"
 
 #include <string>
+int ImageFile::width;
+int ImageFile::height;
+RGB_COLOR* ImageFile::pixelcolor;
+float * ImageFile::R;
+float * ImageFile::G;
+float * ImageFile::B;
 
 void ImageFile::Initial(int x,int y)
 {

@@ -72,6 +72,9 @@
     <ClCompile Include="ImageFile.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">

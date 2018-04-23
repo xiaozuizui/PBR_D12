@@ -12,7 +12,7 @@
 using namespace DirectX;
 using namespace std;
 
-#pragma region testSphere
+
 
 typedef XMFLOAT3 RGB_COLOR;
 typedef XMFLOAT3 Point;
@@ -21,14 +21,6 @@ enum Refl_t
 	DIFF,SPEC,REFR
 };
 
-std::default_random_engine generator;
-std::uniform_real_distribution<float> distr(0.0f, 1.0f);
-
-float erand48(unsigned short X)
-{
-	return distr(generator);
-}
-#pragma endregion
 
 
 class Ray
@@ -39,7 +31,7 @@ public:
 		origin = XMFLOAT3(0, 0, 0);
 		direction = XMFLOAT3(0, 0, 0 );
 	}
-	Ray(XMFLOAT3 o, XMFLOAT3 d, float min_t = 0.0f, float max_t = 99999.0f)
+	Ray(XMFLOAT3 o, XMFLOAT3 d, float min_t = 0.0f, float max_t = 9999.0f)
 	{
 		origin = o;
 		direction = d;
@@ -60,7 +52,7 @@ public:
 };
 
 
-XMMATRIX Perspective(float fov, float n, float f)
+inline XMMATRIX Perspective(float fov, float n, float f)
 {
 	float invTanAng = 1.0f / tanf((fov*3.1415926f / 180.0f) / 2.0f);
 	return XMMatrixScaling(invTanAng, invTanAng, 1)*XMLoadFloat4x4(&XMFLOAT4X4(1, 0, 0, 0,

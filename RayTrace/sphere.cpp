@@ -1,6 +1,7 @@
 #include "sphere.h"
 
-bool Sphere::Intersection(Ray ray)
+bool Sphere::Intersect(const Ray& ray,Intersection *p)const//在物体坐标系下计算
+
 {
 	//光线方程带入球方程解出t  At^2+Bt+C = 0
 
