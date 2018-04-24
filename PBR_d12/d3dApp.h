@@ -77,7 +77,7 @@ protected:
 protected:
 
     static D3DApp* mApp;
-
+//µ¥Àý
     HINSTANCE mhAppInst = nullptr; // application instance handle
     HWND      mhMainWnd = nullptr; // main window handle
 	bool      mAppPaused = false;  // is the application paused?

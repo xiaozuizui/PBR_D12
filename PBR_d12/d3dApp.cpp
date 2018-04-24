@@ -22,6 +22,7 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 D3DApp* D3DApp::mApp = nullptr;
+
 D3DApp* D3DApp::GetApp()
 {
     return mApp;
@@ -61,6 +62,7 @@ bool D3DApp::Get4xMsaaState()const
     return m4xMsaaState;
 }
 
+//多重采样抗锯齿
 void D3DApp::Set4xMsaaState(bool value)
 {
     if(m4xMsaaState != value)

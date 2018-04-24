@@ -21,6 +21,14 @@ enum Refl_t
 	DIFF,SPEC,REFR
 };
 
+inline float erand48(unsigned short X)
+{
+	
+		std::default_random_engine generator;
+		std::uniform_real_distribution<float> distr(0.0f, 1.0f);
+		return distr(generator);
+	
+}
 
 
 class Ray

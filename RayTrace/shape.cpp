@@ -7,7 +7,3 @@ Shape::Shape(XMFLOAT4X4 ObjectToWorld, XMFLOAT4X4 WorldToObject)
 
 }
 
-Shape::~Shape()
-{
-
-}

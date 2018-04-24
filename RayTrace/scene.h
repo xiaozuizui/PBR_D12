@@ -3,6 +3,8 @@
 
 #include "Primitive.h"
 #include "Intersection.h"
+#include "../PBR_d12/d3dUtil.h"
+#include "light.h"
 
 class Scene
 {
@@ -12,7 +14,8 @@ private:
 public:
 	Scene(int Num, Primitive *p);
 	bool Intersect(const Ray& r,Intersection *p);
-
+	vector<light* > lights;
+	
 };
 
 

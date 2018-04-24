@@ -134,6 +134,7 @@
     <ClCompile Include="Film.cpp" />
     <ClCompile Include="ImageFile.cpp" />
     <ClCompile Include="intersectioncpp.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="PathRender.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="render.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Film.h" />
     <ClInclude Include="ImageFile.h" />
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="PathRender.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="render.h" />

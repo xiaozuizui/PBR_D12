@@ -1,7 +1,14 @@
 #include "sphere.h"
 
-bool Sphere::Intersect(const Ray& ray,Intersection *p)const//在物体坐标系下计算
+Sphere::Sphere(XMFLOAT4X4 ObjectToWorld, XMFLOAT4X4 WorldToObject, float r) :Shape(ObjectToWorld, WorldToObject) { radius = r; }
 
+/**
+ * \brief 
+ * \param ray 入射光线
+ * \param p 交点	
+ * \return 是否相交
+ */
+bool Sphere::Intersect(const Ray& ray,Intersection *p)const//在物体坐标系下计算
 {
 	//光线方程带入球方程解出t  At^2+Bt+C = 0
 
@@ -36,3 +43,5 @@ bool Sphere::Intersect(const Ray& ray,Intersection *p)const//在物体坐标系下计算
 
 	return false;*/
 }
+
+

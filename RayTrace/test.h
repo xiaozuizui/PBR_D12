@@ -8,12 +8,6 @@
 
 inline bool Intersect(const Ray &r, float &t, int &id);
 
-std::default_random_engine generator;
-std::uniform_real_distribution<float> distr(0.0f, 1.0f);
-inline float erand48(unsigned short X)
-{
-	return distr(generator);
-}
 
 
 class TestSphere
@@ -55,8 +49,7 @@ TestSphere TestSpheres[] = {//Scene: radius, position, emission, color, material
 };
 
 
-
-XMVECTOR radiance(const Ray &r, int depth, unsigned short *Xi) {
+inline XMVECTOR radiance(const Ray &r, int depth, unsigned short *Xi) {
 	float t;                               // distance to intersection 
 	int id = 0;                               // id of intersected object 
 	if (!Intersect(r, t, id)) 
@@ -128,6 +121,7 @@ XMVECTOR radiance(const Ray &r, int depth, unsigned short *Xi) {
 	//return obj.e + f.mult(depth>2 ? (erand48(Xi)<P ?   // Russian roulette 
 	//	radiance(reflRay, depth, Xi)*RP : radiance(Ray(x, tdir), depth, Xi)*TP) :
 	//	radiance(reflRay, depth, Xi)*Re + radiance(Ray(x, tdir), depth, Xi)*Tr);
+	return {};
 }
 
 inline void Test()
@@ -195,28 +189,32 @@ inline void Test()
 	}
 }
 
-void TestN()
+inline void TestN()
 {
-	XMFLOAT4X4 obj2world(1, 0, 0, -27, 0, 1, 0, 16.5, 0, 0, 1, 47, 0, 0, 0, 1);
-
-	Sphere s(obj2world, obj2world, 16.5);
+	const XMFLOAT4X4 obj2world(1, 0, 0, -27, 0, 1, 0, 16.5, 0, 0, 1, 47, 0, 0, 0, 1);
+	const XMFLOAT4X4 obj2world2(1, 0, 0, 50, 0, 1, 0, -18.5, 0, 0, 1, -100, 0, 0, 0, 1);
+	Sphere s(obj2world, obj2world, 100.5);
+	Sphere s1(obj2world2, obj2world2, 30.2);
 	Primitive p(&s);
-	Scene sc(1, &p);
+	Primitive p1(&s1);
+	p.next = &p1;
+	Scene sc(2, &p);
 
 
-	int width = 512, height = 512;
+	const auto width = 512;
+	const auto height = 512;
 
 	ImageFile::Initial(width, height);
 
 	XMFLOAT3 d(0, -0.042612, -1);
 	XMStoreFloat3(&d, XMVector3Normalize(XMLoadFloat3(&d)));
 	Ray cam(XMFLOAT3(50, 52, 295.6), d); // cam pos, dir 
-	XMVECTOR cx = XMVectorSet(width*.5135 / height, 0, 0, 0);
-	XMVECTOR cy = XMVector3Normalize(XMVector3Cross(cx, XMLoadFloat3(&cam.direction)))*.5135;
+	XMVECTOR cx = XMVectorSet(width * .5135 / height, 0, 0, 0);
+	XMVECTOR cy = XMVector3Normalize(XMVector3Cross(cx, XMLoadFloat3(&cam.direction))) * .5135;
 
 	for (int x = 0; x < width; x++)
 	{
-		unsigned int Xi[3] = { 0,0,x*x*x };
+		unsigned int Xi[3] = {0, 0, x * x * x};
 		for (int y = 0; y < height; y++)
 		{
 			float r1 = 2 * erand48(*Xi), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
@@ -225,7 +223,7 @@ void TestN()
 			XMVECTOR d = cx * (((x + .5 + dx) / 2 + x) / width - .5) +
 				cy * (((y + .5 + dy) / 2 + y) / height - .5) + XMLoadFloat3(&cam.direction);
 
-			XMVECTOR R0 = XMLoadFloat3(&cam.origin) + d * 140;
+			const auto R0 = XMLoadFloat3(&cam.origin) + d * 140;
 			XMVECTOR D0 = XMVector3Normalize(d);
 
 			XMFLOAT3 r0;
@@ -233,8 +231,10 @@ void TestN()
 			Intersection p;
 			XMStoreFloat3(&r0, R0);
 			XMStoreFloat3(&d0, D0);
-			sc.Intersect(Ray(r0, d0), &p);
-			ImageFile::SavePi(RGB_COLOR(255, 255, 255), x*width + y);
+			if (sc.Intersect(Ray(r0, d0), &p))
+				ImageFile::SavePi(RGB_COLOR(255, 255, 255), x * width + y);
+			else
+				ImageFile::SavePi(RGB_COLOR(0, 0, 0), x * width + y);
 		}
 	}
 	ImageFile::SaveFile();
