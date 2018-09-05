@@ -225,6 +225,7 @@ void D3DApp::OnResize()
     // Execute the resize commands.
     ThrowIfFailed(mCommandList->Close());
     ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
+	
     mCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
 	// Wait until resize is complete.
@@ -429,6 +430,7 @@ bool D3DApp::InitDirect3D()
 }
 #endif
 
+	//create DXGI Factory
 	ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(&mdxgiFactory)));
 
 	// Try to create hardware device.
@@ -449,11 +451,15 @@ bool D3DApp::InitDirect3D()
 			IID_PPV_ARGS(&md3dDevice)));
 	}
 
+	//create Fence
 	ThrowIfFailed(md3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE,
 		IID_PPV_ARGS(&mFence)));
 
+	//rendering target
 	mRtvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	//depth stencil target
 	mDsvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+	//constent buffer
 	mCbvSrvUavDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
     // Check 4X MSAA quality support for our back buffer format.
