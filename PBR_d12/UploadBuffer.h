@@ -37,6 +37,7 @@ public:
 
     UploadBuffer(const UploadBuffer& rhs) = delete;
     UploadBuffer& operator=(const UploadBuffer& rhs) = delete;
+
     ~UploadBuffer()
     {
         if(mUploadBuffer != nullptr)

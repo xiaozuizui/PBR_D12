@@ -99,11 +99,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,10 +154,15 @@
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="PBR_d12.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="shapes.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UploadBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="buildconstantbuffer.cpp" />
+    <ClCompile Include="builddescriptorheaps.cpp" />
+    <ClCompile Include="buildrootsignature.cpp" />
     <ClCompile Include="d3dApp.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="GameTimer.cpp" />

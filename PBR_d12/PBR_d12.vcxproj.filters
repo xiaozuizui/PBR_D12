@@ -45,6 +45,12 @@
     <ClInclude Include="MathHelper.h">
       <Filter>head\D12APP</Filter>
     </ClInclude>
+    <ClInclude Include="shapes.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadBuffer.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -64,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="MathHelper.cpp">
       <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="builddescriptorheaps.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="buildconstantbuffer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="buildrootsignature.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

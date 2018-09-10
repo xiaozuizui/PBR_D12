@@ -6,7 +6,10 @@
 
 #include "d3dApp.h"
 #include <WindowsX.h>
+#include <winuser.h>
 
+
+#define TEST_BUTTON 3301
 
 using Microsoft::WRL::ComPtr;
 using namespace std;
@@ -179,7 +182,7 @@ void D3DApp::OnResize()
 
     // Create the depth/stencil buffer and view.
     D3D12_RESOURCE_DESC depthStencilDesc;
-    depthStencilDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+	depthStencilDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
     depthStencilDesc.Alignment = 0;
     depthStencilDesc.Width = mClientWidth;
     depthStencilDesc.Height = mClientHeight;
@@ -232,20 +235,32 @@ void D3DApp::OnResize()
 	FlushCommandQueue();
 
 	// Update the viewport transform to cover the client area.
-	mScreenViewport.TopLeftX = 0;
-	mScreenViewport.TopLeftY = 0;
-	mScreenViewport.Width    = static_cast<float>(mClientWidth);
-	mScreenViewport.Height   = static_cast<float>(mClientHeight);
-	mScreenViewport.MinDepth = 0.0f;
-	mScreenViewport.MaxDepth = 1.0f;
+	mScreenViewport[0].TopLeftX = .0;
+	mScreenViewport[0].TopLeftY = .0;
+	mScreenViewport[0].Width    = static_cast<float>(mClientWidth)/2.0;
+	mScreenViewport[0].Height   = static_cast<float>(mClientHeight);
+	mScreenViewport[0].MinDepth = 0.0f;
+	mScreenViewport[0].MaxDepth = 1.0f;
 
-    mScissorRect = { 0, 0, mClientWidth, mClientHeight };
+	mScreenViewport[1].TopLeftX = -static_cast<float>(mClientWidth)/2.0f;
+	mScreenViewport[1].TopLeftY = .0;
+	mScreenViewport[1].Width = static_cast<float>(mClientWidth) / 2.0f;
+	mScreenViewport[1].Height = static_cast<float>(mClientHeight) ;
+	mScreenViewport[1].MinDepth = 0.0f;
+	mScreenViewport[1].MaxDepth = 1.0f;
+
+    mScissorRect = { 100, 100, mClientWidth, mClientHeight };
 }
  
 LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch( msg )
 	{
+
+	case WM_CREATE:
+		CreateWindow(TEXT("button"), L"Test BUTTON", WS_VISIBLE | BS_PUSHBUTTON
+			|WS_CHILD, 35, 10, 120, 60, hwnd, (HMENU)TEST_BUTTON, mhAppInst, NULL);
+		return 0;
 	// WM_ACTIVATE is sent when the window is activated or deactivated.  
 	// We pause the game when the window is deactivated and unpause it 
 	// when it becomes active.  
@@ -406,7 +421,11 @@ bool D3DApp::InitMainWindow()
 	int height = R.bottom - R.top;
 
 	mhMainWnd = CreateWindow(L"MainWnd", mMainWndCaption.c_str(), 
-		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0); 
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0);
+
+
+	HWND testwin = CreateWindow(L"MainWnd", L"test win",
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0);
 	if( !mhMainWnd )
 	{
 		MessageBox(0, L"CreateWindow Failed.", 0, 0);
@@ -415,6 +434,9 @@ bool D3DApp::InitMainWindow()
 
 	ShowWindow(mhMainWnd, SW_SHOW);
 	UpdateWindow(mhMainWnd);
+
+	ShowWindow(testwin, SW_SHOW);
+	UpdateWindow(testwin);
 
 	return true;
 }

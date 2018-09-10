@@ -112,7 +112,7 @@ protected:
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mRtvHeap;
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mDsvHeap;
 
-    D3D12_VIEWPORT mScreenViewport; 
+    D3D12_VIEWPORT mScreenViewport[2]; 
     D3D12_RECT mScissorRect;
 
 	UINT mRtvDescriptorSize = 0;
@@ -124,7 +124,11 @@ protected:
 	D3D_DRIVER_TYPE md3dDriverType = D3D_DRIVER_TYPE_HARDWARE;
     DXGI_FORMAT mBackBufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
     DXGI_FORMAT mDepthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	int mClientWidth = 800;
-	int mClientHeight = 600;
+	int mClientWidth =400;
+	int mClientHeight = 400;
+
+
+//debug
+	bool isFirts = true;
 };
 
