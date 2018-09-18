@@ -16,6 +16,8 @@ GeometryGenerator::MeshData GeometryGenerator::CreateBox(float width, float heig
 	// Create the vertices.
 	//
 
+
+	//position3 normal3 tangentu3 text2
 	Vertex v[24];
 
 	float w2 = 0.5f*width;

@@ -19,4 +19,6 @@ void PBRD12::BuildConstantBuffers()
 	md3dDevice->CreateConstantBufferView(
 		&cbvDesc,
 		mCbvHeap->GetCPUDescriptorHandleForHeapStart());
+
+
 }

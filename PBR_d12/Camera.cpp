@@ -1,11 +1,7 @@
-//***************************************************************************************
-// Camera.h by Frank Luna (C) 2011 All Rights Reserved.
-//***************************************************************************************
 
-#include "../stdafx.h"
-
+#include "stdafx.h"
 #include "Camera.h"
-
+ 
 using namespace DirectX;
 
 Camera::Camera()
@@ -132,7 +128,7 @@ void Camera::SetLens(float fovY, float aspect, float zn, float zf)
 
 void Camera::LookAt(FXMVECTOR pos, FXMVECTOR target, FXMVECTOR worldUp)
 {
-	XMVECTOR L = XMVector3Normalize(XMVectorSubtract(target, pos));
+	XMVECTOR  L = XMVector3Normalize(XMVectorSubtract(target, pos));
 	XMVECTOR R = XMVector3Normalize(XMVector3Cross(worldUp, L));
 	XMVECTOR U = XMVector3Cross(L, R);
 

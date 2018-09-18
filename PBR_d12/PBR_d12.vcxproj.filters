@@ -19,6 +19,9 @@
     <Filter Include="source\D12APP">
       <UniqueIdentifier>{b43b44f7-749e-49ca-958c-80a0603f2282}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{4c380165-a7b0-4b48-8e76-6efd5fc002b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -51,6 +54,12 @@
     <ClInclude Include="UploadBuffer.h">
       <Filter>head\D12APP</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryGenerator.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -80,6 +89,42 @@
     <ClCompile Include="buildrootsignature.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="buildgeo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="buildshader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="buildpso.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Update.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="OnResize.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="OnKeyboardInput.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="gameinit.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryGenerator.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="OnMouse.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="MsgProc.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PBR_d12.rc">
@@ -93,5 +138,10 @@
     <Image Include="PBR_d12.ico">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\color.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -237,7 +237,7 @@ void D3DApp::OnResize()
 	// Update the viewport transform to cover the client area.
 	mScreenViewport[0].TopLeftX = .0;
 	mScreenViewport[0].TopLeftY = .0;
-	mScreenViewport[0].Width    = static_cast<float>(mClientWidth)/2.0;
+	mScreenViewport[0].Width    = static_cast<float>(mClientWidth);
 	mScreenViewport[0].Height   = static_cast<float>(mClientHeight);
 	mScreenViewport[0].MinDepth = 0.0f;
 	mScreenViewport[0].MaxDepth = 1.0f;
@@ -249,7 +249,7 @@ void D3DApp::OnResize()
 	mScreenViewport[1].MinDepth = 0.0f;
 	mScreenViewport[1].MaxDepth = 1.0f;
 
-    mScissorRect = { 100, 100, mClientWidth, mClientHeight };
+    mScissorRect = { 0, 0, mClientWidth, mClientHeight };
 }
  
 LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -257,10 +257,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch( msg )
 	{
 
-	case WM_CREATE:
-		CreateWindow(TEXT("button"), L"Test BUTTON", WS_VISIBLE | BS_PUSHBUTTON
-			|WS_CHILD, 35, 10, 120, 60, hwnd, (HMENU)TEST_BUTTON, mhAppInst, NULL);
-		return 0;
+		
 	// WM_ACTIVATE is sent when the window is activated or deactivated.  
 	// We pause the game when the window is deactivated and unpause it 
 	// when it becomes active.  
@@ -424,8 +421,6 @@ bool D3DApp::InitMainWindow()
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0);
 
 
-	HWND testwin = CreateWindow(L"MainWnd", L"test win",
-		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0);
 	if( !mhMainWnd )
 	{
 		MessageBox(0, L"CreateWindow Failed.", 0, 0);
@@ -435,8 +430,6 @@ bool D3DApp::InitMainWindow()
 	ShowWindow(mhMainWnd, SW_SHOW);
 	UpdateWindow(mhMainWnd);
 
-	ShowWindow(testwin, SW_SHOW);
-	UpdateWindow(testwin);
 
 	return true;
 }
