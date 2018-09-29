@@ -60,6 +60,9 @@
     <ClInclude Include="GeometryGenerator.h">
       <Filter>head\D12APP</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantResource.h">
+      <Filter>head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -125,6 +128,9 @@
     <ClCompile Include="MsgProc.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantResource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PBR_d12.rc">
@@ -140,7 +146,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shader\color.hlsl">
+    <FxCompile Include="Shaders\color.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

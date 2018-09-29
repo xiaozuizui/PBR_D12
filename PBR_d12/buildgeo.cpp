@@ -109,6 +109,8 @@ void PBRD12::BuildBoxGeometry()
 	auto geo = std::make_unique<MeshGeometry>();
 	geo->Name = "shapeGeo";
 
+
+	//顶点与面表上传
 	ThrowIfFailed(D3DCreateBlob(vbByteSize, &geo->VertexBufferCPU));
 	CopyMemory(geo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
 
