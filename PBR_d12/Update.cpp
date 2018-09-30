@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "GameTimer.h"
 #include "PBR_d12.h"
+#include "ConstantResource.h"
+#include "Setting.h"
 
 bool first = true;
+
+
 
 void PBRD12::Update(const GameTimer& gt)
 {
 
 		OnKeyboardInput(gt);
 
-		mCurrConstantResourceIndex = (mCurrConstantResourceIndex + 1) % gNumFrameResources;
+		mCurrConstantResourceIndex = (mCurrConstantResourceIndex + 1) % Setting::gNumFrameResource;
 		mCurrConstantResource = mConstantResource[mCurrConstantResourceIndex].get();
 
 
@@ -91,12 +95,12 @@ void PBRD12::UpdateMainPassCB(const GameTimer& gt)
 	mMainPassCB.TotalTime = gt.TotalTime();
 	mMainPassCB.DeltaTime = gt.DeltaTime();
 	mMainPassCB.AmbientLight = { 0.25f, 0.25f, 0.35f, 1.0f };
-	mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
-	mMainPassCB.Lights[0].Strength = { 0.8f, 0.8f, 0.8f };
-	mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
-	mMainPassCB.Lights[1].Strength = { 0.4f, 0.4f, 0.4f };
-	mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
-	mMainPassCB.Lights[2].Strength = { 0.2f, 0.2f, 0.2f };
+	//mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
+	//mMainPassCB.Lights[0].Strength = { 0.8f, 0.8f, 0.8f };
+	//mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
+	//mMainPassCB.Lights[1].Strength = { 0.4f, 0.4f, 0.4f };
+	//mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
+	//mMainPassCB.Lights[2].Strength = { 0.2f, 0.2f, 0.2f };
 
 	auto currPassCB = mCurrConstantResource->frameCB.get();
 	currPassCB->CopyData(0, mMainPassCB);

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include <DirectXColors.h>
 #include "PBR_d12.h"
+#include "ConstantResource.h"
+
 
 void PBRD12::Draw(const GameTimer& gt)
 {
@@ -27,34 +29,20 @@ void PBRD12::Draw(const GameTimer& gt)
 	// Specify the buffers we are going to render to.
 	mCommandList->OMSetRenderTargets(1, &CurrentBackBufferView(), true, &DepthStencilView());
 
-	ID3D12DescriptorHeap* descriptorHeaps[] = { mCbvHeap.Get() };
-	mCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
+	//ID3D12DescriptorHeap* descriptorHeaps[] = { mCbvHeap.Get() };
+	//mCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
 	mCommandList->SetGraphicsRootSignature(mRootSignature.Get());
 
-	mCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
+	//mCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
+	//ÉèÖÃPerframeconstant
+	auto passPerframe = mCurrConstantResource->frameCB->Resource();
+	//mCommandList->SetComputeRootConstantBufferView(0,passPerframe->GetGPUVirtualAddress());
+	mCommandList->SetGraphicsRootConstantBufferView(0, passPerframe->GetGPUVirtualAddress());
 
-
-
+	auto temp = mCommandList.Get();
 	DrawRenderItems(mCommandList.Get(), mOpaqueRitems);
 
-
-	//*****
-	/*for (int i = 0; i < 4; i++)
-	{
-
-		mCommandList->IASetVertexBuffers(0, 1, &mBoxGeo->VertexBufferView());
-		mCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
-		mCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-		
-
-		mCommandList->DrawIndexedInstanced(
-			mBoxGeo->DrawArgs["box"].IndexCount,
-			1, 0, 0, 0);
-	}*/
-	//*****
-	// Indicate a state transition on the resource usage.
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
 		D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));
 
@@ -82,7 +70,7 @@ void PBRD12::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vect
 {
 	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 
-	//auto objectCB = mCurrFrameResource->ObjectCB->Resource();
+	auto objectCB = mCurrConstantResource->ObjectCB->Resource();
 
 	// For each render item...
 	for (size_t i = 0; i < ritems.size(); ++i)
@@ -93,12 +81,12 @@ void PBRD12::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vect
 		cmdList->IASetIndexBuffer(&ri->Geo->IndexBufferView());
 		cmdList->IASetPrimitiveTopology(ri->PrimitiveType);
 
-		//D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex*objCBByteSize;
+		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex*objCBByteSize;
 
-		// CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+		//CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
 		// tex.Offset(ri->Mat->DiffuseSrvHeapIndex, mCbvSrvDescriptorSize);
 
-		//cmdList->SetGraphicsRootConstantBufferView(0, objCBAddress);
+		cmdList->SetGraphicsRootConstantBufferView(0, objCBAddress);
 
 		cmdList->DrawIndexedInstanced(ri->IndexCount, 1, ri->StartIndexLocation, ri->BaseVertexLocation, 0);
 	}

@@ -16,7 +16,8 @@ void PBRD12::OnMouseUp(WPARAM btnState, int x, int y)
 
 void PBRD12::OnMouseMove(WPARAM btnState, int x, int y)
 {
-	if ((btnState & MK_LBUTTON )&&( GetAsyncKeyState(VK_MENU) & 0x8000) != 0)
+	if ((btnState & MK_LBUTTON ))
+		//&&( GetAsyncKeyState(VK_MENU) & 0x8000) != 0)
 	{
 		
 		float dx = XMConvertToRadians(0.25f*static_cast<float>(x - mLastMousePos.x));

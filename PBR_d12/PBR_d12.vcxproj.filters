@@ -63,6 +63,9 @@
     <ClInclude Include="ConstantResource.h">
       <Filter>head</Filter>
     </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -131,6 +134,9 @@
     <ClCompile Include="ConstantResource.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="buildframeresource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PBR_d12.rc">
@@ -146,8 +152,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\color.hlsl">
+    <None Include="Shaders\color.hlsl">
       <Filter>Shader</Filter>
-    </FxCompile>
+    </None>
   </ItemGroup>
 </Project>

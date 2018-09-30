@@ -13,7 +13,7 @@ void PBRD12::GameInit()
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
 
-	mCamera.LookAt(pos, target, up);
+	//mCamera.LookAt(pos, target, up);
 
 
 	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
@@ -24,10 +24,13 @@ void PBRD12::GameInit()
 	XMMATRIX proj = XMLoadFloat4x4(&mProj);
 	XMMATRIX worldViewProj = world * view*proj;
 
+	//mCamera.LookAt(pos, target, up);
+	mCamera.SetPosition(0.0f, 2.0f, -15.0f);
+	//mCamera.SetLens(0.25f*MathHelper::Pi, AspectRatio(), 1.0f, 1000.0f);
 	// Update the constant buffer with the latest worldViewProj matrix.
-	ObjectConstants objConstants;
-	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
-	mObjectCB->CopyData(0, objConstants);
+	//ObjectConstants objConstants;
+	//XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
+	//mObjectCB->CopyData(0, objConstants);
 }
 
 

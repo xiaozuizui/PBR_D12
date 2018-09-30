@@ -4,7 +4,6 @@
 // Transforms and colors geometry.
 //***************************************************************************************
 
-
 cbuffer cbPassPerFrame : register(b0)
 {
 	float4x4 gView;
@@ -27,19 +26,8 @@ cbuffer cbPassPerFrame : register(b0)
 	// indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
 	// indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
 	// are spot lights for a maximum of MaxLights per object.
-	//Light gLights[MaxLights];
+	Light gLights[MaxLights];
 };
-
-cbuffer cbPerObject : register(b1)
-{
-	float4x4 gWorld;
-	float4x4 gTexTransform;
-	uint gMaterialIndex;
-	uint gObjPad0;
-	uint gObjPad1;
-	uint gObjPad2;
-};
-// Constant data that varies per material.
 
 
 struct VertexIn
@@ -58,13 +46,10 @@ VertexOut VS(VertexIn vin)
 {
 	VertexOut vout;
 	
-	float4 posw = mul(float4(vin.PosL, 1.0f), gWorld);
 	
-	// Transform to homogeneous clip space.
-	vout.PosH = mul(posw,gViewProj);
-	//vout.PosH = posw;
-	//vout.PosH = mul(float4(vin.PosL,1.0f),)
-	// Just pass vertex color into the pixel shader.
+	vout.PosH = mul(float4(vin.PosL, 1.0f), gViewProj);
+	
+	
     vout.Color = vin.Color;
     
     return vout;
@@ -72,9 +57,7 @@ VertexOut VS(VertexIn vin)
 
 float4 PS(VertexOut pin) : SV_Target
 {
-	float4 color = float4(1.0f,1.0f,1.0f,1.0f);
-	return color;
-    //return pin.Color;
+    return pin.Color;
 }
 
 
