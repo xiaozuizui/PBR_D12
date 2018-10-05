@@ -66,6 +66,9 @@
     <ClInclude Include="Setting.h">
       <Filter>head</Filter>
     </ClInclude>
+    <ClInclude Include="DDSTextureLoader.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -135,6 +138,18 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="buildframeresource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="DDSTextureLoader.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadTexture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="buildrenderingitem.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildMaterials.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

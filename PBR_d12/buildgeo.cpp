@@ -6,7 +6,8 @@
 struct Vertex
 {
 	XMFLOAT3 Pos;
-	XMFLOAT4 Color;
+	XMFLOAT3 Normal;
+	XMFLOAT2 TexC;
 };
 
 
@@ -68,33 +69,33 @@ void PBRD12::BuildBoxGeometry()
 	for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = box.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(Colors::White);
-		//vertices[k].Normal = box.Vertices[i].Normal;
-		//vertices[k].TexC = box.Vertices[i].TexC;
+		//vertices[k].Color = XMFLOAT4(Colors::White);
+		vertices[k].Normal = box.Vertices[i].Normal;
+		vertices[k].TexC = box.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < grid.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = grid.Vertices[i].Position;
-		//vertices[k].Normal = grid.Vertices[i].Normal;
-		vertices[k].Color = XMFLOAT4(Colors::Red);
-		//vertices[k].TexC = grid.Vertices[i].TexC;
+		vertices[k].Normal = grid.Vertices[i].Normal;
+		//vertices[k].Color = XMFLOAT4(Colors::Red);
+		vertices[k].TexC = grid.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < sphere.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = sphere.Vertices[i].Position;
-		vertices[k].Color = XMFLOAT4(Colors::Blue);
-		//vertices[k].Normal = sphere.Vertices[i].Normal;
-		//vertices[k].TexC = sphere.Vertices[i].TexC;
+		//vertices[k].Color = XMFLOAT4(Colors::Blue);
+		vertices[k].Normal = sphere.Vertices[i].Normal;
+		vertices[k].TexC = sphere.Vertices[i].TexC;
 	}
 
 	for (size_t i = 0; i < cylinder.Vertices.size(); ++i, ++k)
 	{
 		vertices[k].Pos = cylinder.Vertices[i].Position;
-		//vertices[k].Normal = cylinder.Vertices[i].Normal;
-		vertices[k].Color = XMFLOAT4(Colors::Yellow);
-		//vertices[k].TexC = cylinder.Vertices[i].TexC;
+		vertices[k].Normal = cylinder.Vertices[i].Normal;
+		//vertices[k].Color = XMFLOAT4(Colors::Yellow);
+		vertices[k].TexC = cylinder.Vertices[i].TexC;
 	}
 
 	std::vector<std::uint16_t> indices;

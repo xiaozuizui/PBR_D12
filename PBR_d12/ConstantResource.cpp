@@ -11,6 +11,7 @@ ConstantResource::ConstantResource(ID3D12Device* device, UINT passCount, UINT ob
 
 	frameCB = std::make_unique<UploadBuffer<ConstantsPerFrame>>(device, passCount, true);
 	ObjectCB = std::make_unique<UploadBuffer<ConstantsPerObject>>(device, objectCount, true);
+	Materials = std::make_unique<UploadBuffer<MaterialData>>(device, materialCount, false);
 }
 
 

@@ -30,7 +30,7 @@ void PBRD12::Update(const GameTimer& gt)
 		// Update the constant buffer with the latest worldViewProj matrix.
 		UpdateMainPassCB(gt);
 		UpdateObjectCBs(gt);
-		
+		UpdateMaterialBuffer(gt);
  	
 
 
@@ -57,7 +57,7 @@ void PBRD12::UpdateObjectCBs(const GameTimer& gt)
 			XMStoreFloat4x4(&objectconstant.TexTransform, XMMatrixTranspose(texTransform));
 			
 			//XMStoreFloat4x4(&objConstants.TexTransform, XMMatrixTranspose(texTransform));
-			//objConstants.MaterialIndex = e->Mat->MatCBIndex;
+			objectconstant.MaterialIndex = e->Mat->MatCBIndex;
 
 			currObjectCB->CopyData(e->ObjCBIndex, objectconstant);
 
@@ -106,3 +106,30 @@ void PBRD12::UpdateMainPassCB(const GameTimer& gt)
 	currPassCB->CopyData(0, mMainPassCB);
 }
 
+
+void PBRD12::UpdateMaterialBuffer(const GameTimer& gt)
+{
+	auto currMaterialBuffer = mCurrConstantResource->Materials.get();
+	for (auto& e : mMaterials)
+	{
+		// Only update the cbuffer data if the constants have changed.  If the cbuffer
+		// data changes, it needs to be updated for each FrameResource.
+		Material* mat = e.second.get();
+		if (mat->NumFramesDirty > 0)
+		{
+			XMMATRIX matTransform = XMLoadFloat4x4(&mat->MatTransform);
+
+			MaterialData matData;
+			matData.DiffuseAlbedo = mat->DiffuseAlbedo;
+			matData.FresnelR0 = mat->FresnelR0;
+			matData.Roughness = mat->Roughness;
+			XMStoreFloat4x4(&matData.MatTransform, XMMatrixTranspose(matTransform));
+			matData.DiffuseMapIndex = mat->DiffuseSrvHeapIndex;
+
+			currMaterialBuffer->CopyData(mat->MatCBIndex, matData);
+
+			// Next FrameResource need to be updated too.
+			mat->NumFramesDirty--;
+		}
+	}
+}

@@ -6,14 +6,24 @@
 
 void PBRD12::BuildRootSignature()
 {
-	CD3DX12_ROOT_PARAMETER slotRootParameter[2];
+	CD3DX12_ROOT_PARAMETER slotRootParameter[4];
 
 	// Create a single descriptor table of CBVs.
 	slotRootParameter[0].InitAsConstantBufferView(0);//perframe
 	slotRootParameter[1].InitAsConstantBufferView(1);//perobject
 
+	CD3DX12_DESCRIPTOR_RANGE texTable;//Œ∆¿Ì
+	texTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 4, 0, 0);
+
+	slotRootParameter[2].InitAsDescriptorTable(1, &texTable, D3D12_SHADER_VISIBILITY_PIXEL);
+
+	//material buffer
+	slotRootParameter[3].InitAsShaderResourceView(0, 1);
+
 	// A root signature is an array of root parameters.
-	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(2, slotRootParameter, 0, nullptr,
+	auto staticSamplers = Setting::GetStaticSamplers();
+
+	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(4, slotRootParameter,staticSamplers.size() , staticSamplers.data(),
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	// create a root signature with a single slot which points to a descriptor range consisting of a single constant buffer
