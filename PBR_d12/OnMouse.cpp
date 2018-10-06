@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 
-void PBRD12::OnMouseDown(WPARAM btnState, int x, int y)
+void littlemm::LittleEngineResource::OnMouseDown(WPARAM btnState, int x, int y)
 {
 	mLastMousePos.x = x;
 	mLastMousePos.y = y;
@@ -9,12 +9,12 @@ void PBRD12::OnMouseDown(WPARAM btnState, int x, int y)
 	SetCapture(mhMainWnd);
 }
 
-void PBRD12::OnMouseUp(WPARAM btnState, int x, int y)
+void littlemm::LittleEngineResource::OnMouseUp(WPARAM btnState, int x, int y)
 {
 	ReleaseCapture();
 }
 
-void PBRD12::OnMouseMove(WPARAM btnState, int x, int y)
+void littlemm::LittleEngineResource::OnMouseMove(WPARAM btnState, int x, int y)
 {
 	if ((btnState & MK_LBUTTON ))
 		//&&( GetAsyncKeyState(VK_MENU) & 0x8000) != 0)

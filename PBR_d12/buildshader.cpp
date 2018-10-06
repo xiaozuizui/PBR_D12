@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
 #include <d3d12.h>
 #include "d3dUtil.h"
+#include "LittleEngineResource.h"
 
-void PBRD12::BuildShadersAndInputLayout()
+void littlemm::LittleEngineResource::BuildShadersAndInputLayout()
 {
 	HRESULT hr = S_OK;
 

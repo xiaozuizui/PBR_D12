@@ -1,7 +1,8 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 
-void PBRD12::BuildMaterials()
+
+void littlemm::LittleEngineResource::BuildMaterials()
 {
 	auto bricks0 = std::make_unique<Material>();
 	bricks0->Name = "bricks0";

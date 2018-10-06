@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PBR_d12", "PBR_d12\PBR_d12.vcxproj", "{99A0D760-A0DE-41E9-A028-AB73C42245D6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleEngineBase", "PBR_d12\PBR_d12.vcxproj", "{99A0D760-A0DE-41E9-A028-AB73C42245D6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RayTrace", "RayTrace\RayTrace.vcxproj", "{B52C9A36-3FC7-47A2-8CCA-1D9C3E031B9E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Network\Network.vcxproj", "{C5CDC6E8-E28E-4D9C-B588-D026183E84CB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "littleEngine", "littleEngine\littleEngine.vcxproj", "{61CDE822-6102-39FD-A1DD-D6D70F0A4D03}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleEngineWin32", "LittleEngineWin32\LittleEngineWin32.vcxproj", "{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,14 @@ Global
 		{61CDE822-6102-39FD-A1DD-D6D70F0A4D03}.Release|x64.ActiveCfg = Release|x64
 		{61CDE822-6102-39FD-A1DD-D6D70F0A4D03}.Release|x64.Build.0 = Release|x64
 		{61CDE822-6102-39FD-A1DD-D6D70F0A4D03}.Release|x86.ActiveCfg = Release|x64
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Debug|x64.ActiveCfg = Debug|x64
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Debug|x64.Build.0 = Debug|x64
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Debug|x86.ActiveCfg = Debug|Win32
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Debug|x86.Build.0 = Debug|Win32
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Release|x64.ActiveCfg = Release|x64
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Release|x64.Build.0 = Release|x64
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Release|x86.ActiveCfg = Release|Win32
+		{70E23E6A-F3A5-45C9-A5C6-79450CD37E87}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 #include "Setting.h"
 
 
-void PBRD12::BuildFrameResource()
+void littlemm::LittleEngineResource::BuildFrameResource()
 {
-	for (int i = 0; i < Setting::gNumFrameResource; ++i)
+	for (int i = 0; i < littlemm::Setting::gNumFrameResource; ++i)
 	{
 		mConstantResource.push_back(std::make_unique<ConstantResource>(md3dDevice.Get(),
 			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));

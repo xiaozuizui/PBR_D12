@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 
 
-void PBRD12::LoadTexture()
+void littlemm::LittleEngineResource::LoadTexture()
 {
 	auto bricksTex = std::make_unique<Texture>();
 	bricksTex->Name = "bricksTex";

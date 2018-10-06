@@ -33,12 +33,6 @@
     <ClInclude Include="resource.h">
       <Filter>head</Filter>
     </ClInclude>
-    <ClInclude Include="PBR_d12.h">
-      <Filter>head</Filter>
-    </ClInclude>
-    <ClInclude Include="d3dApp.h">
-      <Filter>head\D12APP</Filter>
-    </ClInclude>
     <ClInclude Include="d3dUtil.h">
       <Filter>head\D12APP</Filter>
     </ClInclude>
@@ -69,16 +63,16 @@
     <ClInclude Include="DDSTextureLoader.h">
       <Filter>head\D12APP</Filter>
     </ClInclude>
+    <ClInclude Include="LittleEngine.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngineResource.h">
+      <Filter>head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="PBR_d12.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="d3dApp.cpp">
-      <Filter>source\D12APP</Filter>
     </ClCompile>
     <ClCompile Include="d3dUtil.cpp">
       <Filter>source\D12APP</Filter>
@@ -88,24 +82,6 @@
     </ClCompile>
     <ClCompile Include="MathHelper.cpp">
       <Filter>source\D12APP</Filter>
-    </ClCompile>
-    <ClCompile Include="builddescriptorheaps.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildconstantbuffer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildrootsignature.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildgeo.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildshader.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildpso.cpp">
-      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Draw.cpp">
       <Filter>source</Filter>
@@ -122,22 +98,13 @@
     <ClCompile Include="OnKeyboardInput.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="gameinit.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>source\D12APP</Filter>
     </ClCompile>
     <ClCompile Include="OnMouse.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="MsgProc.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="ConstantResource.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="buildframeresource.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="DDSTextureLoader.cpp">
@@ -146,10 +113,40 @@
     <ClCompile Include="LoadTexture.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="buildrenderingitem.cpp">
+    <ClCompile Include="BuildMaterials.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="BuildMaterials.cpp">
+    <ClCompile Include="Setting.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine.cpp">
+      <Filter>source\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngineResource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInit.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildFrameResource.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildDescriptorHeaps.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildRootSignature.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildShader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildGeo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildPso.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildRenderingItem.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

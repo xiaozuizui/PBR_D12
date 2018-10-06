@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include <combaseapi.h>
-#include "d3dUtil.h"
-#include "PBR_d12.h"
 
 
-void PBRD12::BuildRootSignature()
+#include "LittleEngineResource.h"
+
+
+void littlemm::LittleEngineResource::BuildRootSignature()
 {
 	CD3DX12_ROOT_PARAMETER slotRootParameter[4];
 
@@ -21,7 +21,7 @@ void PBRD12::BuildRootSignature()
 	slotRootParameter[3].InitAsShaderResourceView(0, 1);
 
 	// A root signature is an array of root parameters.
-	auto staticSamplers = Setting::GetStaticSamplers();
+	auto staticSamplers = littlemm::Setting::GetStaticSamplers();
 
 	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(4, slotRootParameter,staticSamplers.size() , staticSamplers.data(),
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);

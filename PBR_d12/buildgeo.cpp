@@ -1,17 +1,21 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 #include "GeometryGenerator.h"
 
-
-struct Vertex
+namespace littlemm
 {
-	XMFLOAT3 Pos;
-	XMFLOAT3 Normal;
-	XMFLOAT2 TexC;
-};
+	struct Vertex
+	{
+		XMFLOAT3 Pos;
+		XMFLOAT3 Normal;
+		XMFLOAT2 TexC;
+	};
+}
 
 
-void PBRD12::BuildBoxGeometry()
+
+
+void littlemm::LittleEngineResource::BuildBoxGeometry()
 {
 	GeometryGenerator geoGen;
 	GeometryGenerator::MeshData box = geoGen.CreateBox(1.0f, 1.0f, 1.0f, 3);

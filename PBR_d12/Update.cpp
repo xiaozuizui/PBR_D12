@@ -1,14 +1,12 @@
 #include "stdafx.h"
 #include "GameTimer.h"
-#include "PBR_d12.h"
-#include "ConstantResource.h"
-#include "Setting.h"
+#include "LittleEngineResource.h"
 
 bool first = true;
 
 
 
-void PBRD12::Update(const GameTimer& gt)
+void littlemm::LittleEngineResource::Update(const GameTimer& gt)
 {
 
 		OnKeyboardInput(gt);
@@ -37,7 +35,7 @@ void PBRD12::Update(const GameTimer& gt)
 }
 
 
-void PBRD12::UpdateObjectCBs(const GameTimer& gt)
+void littlemm::LittleEngineResource::UpdateObjectCBs(const GameTimer& gt)
 {
 	auto currObjectCB = mCurrConstantResource->ObjectCB.get();
 
@@ -68,7 +66,7 @@ void PBRD12::UpdateObjectCBs(const GameTimer& gt)
 }
 
 //per frame update 
-void PBRD12::UpdateMainPassCB(const GameTimer& gt)
+void littlemm::LittleEngineResource::UpdateMainPassCB(const GameTimer& gt)
 {
 
 	ConstantsPerFrame mMainPassCB;
@@ -107,7 +105,7 @@ void PBRD12::UpdateMainPassCB(const GameTimer& gt)
 }
 
 
-void PBRD12::UpdateMaterialBuffer(const GameTimer& gt)
+void littlemm::LittleEngineResource::UpdateMaterialBuffer(const GameTimer& gt)
 {
 	auto currMaterialBuffer = mCurrConstantResource->Materials.get();
 	for (auto& e : mMaterials)
@@ -132,4 +130,10 @@ void PBRD12::UpdateMaterialBuffer(const GameTimer& gt)
 			mat->NumFramesDirty--;
 		}
 	}
+}
+
+
+void littlemm::LittleEngineResource::AnimateMaterials(const GameTimer& gt)
+{
+	
 }

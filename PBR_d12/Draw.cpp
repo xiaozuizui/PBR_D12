@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include <DirectXColors.h>
-#include "PBR_d12.h"
 #include "ConstantResource.h"
+#include "LittleEngineResource.h"
 
 
-void PBRD12::Draw(const GameTimer& gt)
+void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 {
 	auto cmdListAlloc = mCurrConstantResource->CmdListAlloc;
 
@@ -85,7 +85,7 @@ void PBRD12::Draw(const GameTimer& gt)
 
 
 
-void PBRD12::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
+void littlemm::LittleEngineResource::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
 {
 	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 

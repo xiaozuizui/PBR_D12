@@ -1,9 +1,9 @@
 
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 
 
-void PBRD12::BuildPSO()
+void littlemm::LittleEngineResource::BuildPSO()
 {
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc;
 	ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));

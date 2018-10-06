@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>PBRd12</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>LittleEngineBase</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,7 +41,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -153,13 +154,13 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ConstantResource.h" />
-    <ClInclude Include="d3dApp.h" />
+    <ClInclude Include="LittleEngine.h" />
     <ClInclude Include="d3dUtil.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="MathHelper.h" />
-    <ClInclude Include="PBR_d12.h" />
+    <ClInclude Include="LittleEngineResource.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="shapes.h" />
@@ -168,31 +169,30 @@
     <ClInclude Include="UploadBuffer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="buildconstantbuffer.cpp" />
-    <ClCompile Include="builddescriptorheaps.cpp" />
-    <ClCompile Include="buildframeresource.cpp" />
-    <ClCompile Include="buildgeo.cpp" />
+    <ClCompile Include="BuildDescriptorHeaps.cpp" />
+    <ClCompile Include="BuildFrameResource.cpp" />
+    <ClCompile Include="BuildGeo.cpp" />
     <ClCompile Include="BuildMaterials.cpp" />
-    <ClCompile Include="buildpso.cpp" />
-    <ClCompile Include="buildrenderingitem.cpp" />
-    <ClCompile Include="buildrootsignature.cpp" />
-    <ClCompile Include="buildshader.cpp" />
+    <ClCompile Include="BuildPso.cpp" />
+    <ClCompile Include="BuildRenderingItem.cpp" />
+    <ClCompile Include="BuildRootSignature.cpp" />
+    <ClCompile Include="BuildShader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ConstantResource.cpp" />
-    <ClCompile Include="d3dApp.cpp" />
+    <ClCompile Include="GameInit.cpp" />
+    <ClCompile Include="LittleEngine.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="Draw.cpp" />
-    <ClCompile Include="gameinit.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="LoadTexture.cpp" />
     <ClCompile Include="MathHelper.cpp" />
-    <ClCompile Include="MsgProc.cpp" />
     <ClCompile Include="OnKeyboardInput.cpp" />
     <ClCompile Include="OnMouse.cpp" />
     <ClCompile Include="OnResize.cpp" />
-    <ClCompile Include="PBR_d12.cpp" />
+    <ClCompile Include="LittleEngineResource.cpp" />
+    <ClCompile Include="Setting.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

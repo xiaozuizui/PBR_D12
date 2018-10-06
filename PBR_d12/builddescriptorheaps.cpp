@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "PBR_d12.h"
+#include "LittleEngineResource.h"
 
 
-void PBRD12::BuildDescriptorHeaps()
+void littlemm::LittleEngineResource::BuildDescriptorHeaps()
 {
 
 
