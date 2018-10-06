@@ -34,5 +34,5 @@ void PBRD12::BuildPSO()
 
 
 
-	//ThrowIfFailed();
+	ThrowIfFailed(hr);
 }
