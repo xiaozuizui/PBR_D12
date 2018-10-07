@@ -36,7 +36,8 @@ namespace littlemm
 
 		bool Get4xMsaaState()const;
 		void Set4xMsaaState(bool value);
-
+		void CalculateFrameStats();
+		GameTimer mTimer;
 
 		virtual bool Initialize();
 
@@ -64,8 +65,7 @@ namespace littlemm
 		D3D12_CPU_DESCRIPTOR_HANDLE CurrentBackBufferView()const;
 		D3D12_CPU_DESCRIPTOR_HANDLE DepthStencilView()const;
 
-		void CalculateFrameStats();
-
+		
 		void LogAdapters();
 		void LogAdapterOutputs(IDXGIAdapter* adapter);
 		void LogOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format);
@@ -88,7 +88,7 @@ namespace littlemm
 		UINT      m4xMsaaQuality = 0;      // quality level of 4X MSAA
 
 		// Used to keep track of the “delta-time?and game time (?.4).
-		GameTimer mTimer;
+	
 
 		Microsoft::WRL::ComPtr<IDXGIFactory4> mdxgiFactory;
 		Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;

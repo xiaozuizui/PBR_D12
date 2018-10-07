@@ -158,6 +158,8 @@ void LittleEngine::OnResize()
 	assert(mSwapChain);
     assert(mDirectCmdListAlloc);
 
+	mClientWidth = Setting::Width;
+	mClientHeight = Setting::Height;
 	// Flush before changing any resources.
 	FlushCommandQueue();
 
