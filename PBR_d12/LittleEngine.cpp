@@ -624,6 +624,7 @@ void LittleEngine::CalculateFrameStats()
 		float fps = (float)frameCnt; // fps = frameCnt / 1
 		float mspf = 1000.0f / fps;
 
+		mfps = fps;
         wstring fpsStr = to_wstring(fps);
         wstring mspfStr = to_wstring(mspf);
 

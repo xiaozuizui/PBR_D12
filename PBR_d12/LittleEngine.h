@@ -39,6 +39,9 @@ namespace littlemm
 		void CalculateFrameStats();
 		GameTimer mTimer;
 
+		float mfps;
+
+
 		virtual bool Initialize();
 
 	protected:

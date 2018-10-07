@@ -56,7 +56,7 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 	//mCommandList->SetComputeRootConstantBufferView(0,passPerframe->GetGPUVirtualAddress());
 	mCommandList->SetGraphicsRootConstantBufferView(0, passPerframe->GetGPUVirtualAddress());
 
-	auto temp = mCommandList.Get();
+	//auto temp = mCommandList.Get();
 	DrawRenderItems(mCommandList.Get(), mOpaqueRitems);
 
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
@@ -79,6 +79,7 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 	// so we do not have to wait per frame.
 
 	mCommandQueue->Signal(mFence.Get(), mCurrentFence);
+
 	//FlushCommandQueue();
 
 }

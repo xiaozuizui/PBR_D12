@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListView>
+#include "RenderTarget.h"
 #include "../PBR_d12/LittleEngineResource.h"
 
 class MainWindow : public QMainWindow
@@ -15,18 +17,23 @@ public:
 	littlemm::LittleEngineResource* engine;
 
 	QWidget* centralwidget;
-	QWidget* render;
+	RenderTarget* render;
 
+	QListView* list;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
 
 private:
+	
+	
 	void paintEvent(QPaintEvent* event) override;
 	void resizeEvent(QResizeEvent* event) override;
 	void keyPressEvent(QKeyEvent* event) override;
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
+
+	//void DrawCommond();
 };
 
 #endif // MAINWINDOW_H
