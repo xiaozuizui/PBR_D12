@@ -69,6 +69,21 @@
     <ClInclude Include="LittleEngineResource.h">
       <Filter>head</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>head\D12APP</Filter>
+    </ClInclude>
+    <ClInclude Include="reflection.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="macro.h">
+      <Filter>head</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -149,6 +164,15 @@
     <ClCompile Include="BuildRenderingItem.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="BuildTestObjects.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.h">
+      <Filter>head\D12APP</Filter>
+    </ClCompile>
+    <ClCompile Include="wave.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PBR_d12.rc">
@@ -167,5 +191,10 @@
     <None Include="Shaders\color.hlsl">
       <Filter>Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\littleshader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

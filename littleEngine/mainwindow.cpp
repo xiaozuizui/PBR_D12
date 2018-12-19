@@ -2,10 +2,16 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QtWidgets/QMenuBar>
+#include <QStringListModel>
+#include <QStandardItem>
+#include <QStandardItemModel>
 #include <QtWidgets/QStatusBar>
 #include "../PBR_d12/Setting.h"
 #include <atlstr.h>
 #include <QtWidgets/QLabel>
+#include <QModelIndex>
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -16,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 	
 	if (this->objectName().isEmpty())
 		this->setObjectName(QStringLiteral("littleEngine"));
-	this->resize(1000, 1000);
+	this->resize(960, 720);
 	centralwidget = new QWidget(this);
 	centralwidget->setObjectName(QStringLiteral("rendertarget"));
 	render = new RenderTarget(centralwidget);
@@ -27,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 	list = new QListView(centralwidget);
 	list->setObjectName("List");
 	list->setGeometry(QRect(20, 24, 181, 561));
-	//QObject::connect(render, &RenderTarget::drawcomplete, render, &RenderTarget::update);
+	QObject::connect(this, &MainWindow::FlashRenderTarget, render, &RenderTarget::update);
 	
 	this->setCentralWidget(centralwidget);
 	menubar = new QMenuBar(this);
@@ -49,7 +55,31 @@ MainWindow::MainWindow(QWidget *parent)
 	engine->mTimer.Reset();
 	engine->mTimer.Start();
 
+
+	auto  ItemModel = new QStandardItemModel(this);
+
+	QStringList strList;
+
+
+	for (auto& e : engine->mAllRitems)
+	{
+		strList.append(e->name.c_str());
+
+	}
+
 	
+
+	int nCount = strList.size();
+	for (int i = 0; i < nCount; i++)
+	{
+		QString string = static_cast<QString>(strList.at(i));
+		QStandardItem *item = new QStandardItem(string);
+		ItemModel->appendRow(item);
+	}
+	list->setModel(ItemModel);
+
+	
+
 	//engine((HWND)winId());
 	//	engine.Initialize();
 
@@ -71,7 +101,9 @@ void MainWindow::paintEvent(QPaintEvent* event)
 	engine->Update(engine->mTimer);
 	engine->Draw(engine->mTimer);
 	//render->drawcomplete();
-	render->update();
+
+	emit FlashRenderTarget();
+	//render->update();
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event)

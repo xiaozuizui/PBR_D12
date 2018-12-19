@@ -18,10 +18,13 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
 	// Reusing the command list reuses memory.
-	ThrowIfFailed(mCommandList->Reset(cmdListAlloc.Get(), mPSO.Get()));
+	ThrowIfFailed(mCommandList->Reset(cmdListAlloc.Get(),mPSOs["opaque"].Get()));
 
 	mCommandList->RSSetViewports(1, mScreenViewport);
 	mCommandList->RSSetScissorRects(1, &mScissorRect);
+
+
+	
 
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
 		D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET));
@@ -37,6 +40,7 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 	mCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
 	mCommandList->SetGraphicsRootSignature(mRootSignature.Get());
+	//mCommandList->OMSetStencilRef(2222);
 
 	//设置Material
 	auto mat = mCurrConstantResource->Materials->Resource();
@@ -57,7 +61,25 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 	mCommandList->SetGraphicsRootConstantBufferView(0, passPerframe->GetGPUVirtualAddress());
 
 	//auto temp = mCommandList.Get();
-	DrawRenderItems(mCommandList.Get(), mOpaqueRitems);
+	//mCommandList->SetPipelineState(SeletedPso.Get());
+	//DrawselectedObje(mCommandList.Get(), mSelectRitems);
+
+	//mCommandList->SetPipelineState(mPSO.Get());
+	//DrawRenderItems(mCommandList.Get(), mAllRitems);
+
+
+	DrawRenderItems(mCommandList.Get(), mRitemLayer[(int)RenderLayer::Opaque]);
+
+	mCommandList->SetPipelineState(mPSOs["shadow"].Get());
+
+	DrawRenderItems(mCommandList.Get(), mRitemLayer[(int)RenderLayer::Shadow]);
+
+	mCommandList->SetPipelineState(mPSOs["transparent"].Get());
+
+	DrawRenderItems(mCommandList.Get(), mRitemLayer[(int)RenderLayer::Transparent]);
+
+	
+
 
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
 		D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));
@@ -75,7 +97,7 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 
 	mCurrConstantResource->Fence = ++mCurrentFence;
 	// Wait until frame commands are complete.  This waiting is inefficient and is
-	// done for simplicity.  Later we will show how to organize our rendering code
+	// done for simplicity.  Later we will show how to organize our rendering codne
 	// so we do not have to wait per frame.
 
 	mCommandQueue->Signal(mFence.Get(), mCurrentFence);
@@ -88,7 +110,7 @@ void littlemm::LittleEngineResource::Draw(const GameTimer& gt)
 
 void littlemm::LittleEngineResource::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
 {
-	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
+	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ConstantsPerObject));
 
 	auto objectCB = mCurrConstantResource->ObjectCB->Resource();
 
@@ -104,11 +126,38 @@ void littlemm::LittleEngineResource::DrawRenderItems(ID3D12GraphicsCommandList* 
 		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex*objCBByteSize;
 
 		//CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
-		// tex.Offset(ri->Mat->DiffuseSrvHeapIndex, mCbvSrvDescriptorSize);
+		//tex.Offset(ri->Mat->DiffuseSrvHeapIndex, mCbvSrvDescriptorSize);
 
 		cmdList->SetGraphicsRootConstantBufferView(1, objCBAddress);
-
+		//面数  面表  顶点表
 		cmdList->DrawIndexedInstanced(ri->IndexCount, 1, ri->StartIndexLocation, ri->BaseVertexLocation, 0);
 	}
 }
 
+void littlemm::LittleEngineResource::DrawselectedObje(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
+{
+	UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ConstantsPerObject));
+
+	auto objectCB = mCurrConstantResource->ObjectCB->Resource();
+
+	// For each render item...
+	for (size_t i = 0; i < ritems.size(); ++i)
+	{
+		auto ri = ritems[i];
+
+		cmdList->IASetVertexBuffers(0, 1, &ri->Geo->VertexBufferView());
+		cmdList->IASetIndexBuffer(&ri->Geo->IndexBufferView());
+		cmdList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex*objCBByteSize;
+
+		//CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+		//tex.Offset(ri->Mat->DiffuseSrvHeapIndex, mCbvSrvDescriptorSize);
+
+		cmdList->SetGraphicsRootConstantBufferView(1, objCBAddress);
+
+		//面数  面表  顶点表
+		
+		cmdList->DrawIndexedInstanced(ri->IndexCount, 1, ri->StartIndexLocation, ri->BaseVertexLocation, 0);
+	}
+}

@@ -59,6 +59,7 @@ public:
 
 	struct MeshData
 	{
+	
 		std::vector<Vertex> Vertices;
 		std::vector<uint32> Indices32;
 

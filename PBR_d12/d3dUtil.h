@@ -28,10 +28,10 @@
 #include "DDSTextureLoader.h"
 #include "MathHelper.h"
 #include "Setting.h"
+#include "GeometryGenerator.h"
 
 
-
-	inline void d3dSetDebugName(IDXGIObject* obj, const char* name)
+inline void d3dSetDebugName(IDXGIObject* obj, const char* name)
 	{
 		if (obj)
 		{
@@ -173,7 +173,13 @@
 		Microsoft::WRL::ComPtr<ID3D12Resource> VertexBufferUploader = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12Resource> IndexBufferUploader = nullptr;
 
+
+
+		std::unique_ptr<GeometryGenerator::MeshData> Meshdata = nullptr;
+		DirectX::BoundingBox Bounds;
+
 		// Data about the buffers.
+		UINT IndexCount = 0;
 		UINT VertexByteStride = 0;
 		UINT VertexBufferByteSize = 0;
 		DXGI_FORMAT IndexFormat = DXGI_FORMAT_R16_UINT;
@@ -182,7 +188,7 @@
 		// A MeshGeometry may store multiple geometries in one vertex/index buffer.
 		// Use this container to define the Submesh geometries so we can draw
 		// the Submeshes individually.
-		std::unordered_map<std::string, SubmeshGeometry> DrawArgs;
+		//std::unordered_map<std::string, SubmeshGeometry> DrawArgs;
 
 		D3D12_VERTEX_BUFFER_VIEW VertexBufferView()const
 		{

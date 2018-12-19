@@ -36,6 +36,8 @@ cbuffer cbPassPerFrame : register(b0)
 	float4x4 gViewProj;
 	float4x4 gInvViewProj;
 	float3 gEyePosW;
+	float cbPerObjectPad0;
+	float3 gLookAt;
 	float cbPerObjectPad1;
 	float2 gRenderTargetSize;
 	float2 gInvRenderTargetSize;
@@ -114,9 +116,17 @@ float4 PS(VertexOut pin) : SV_Target
 
 	float4 litColor = ambient+float4(0.2f,0.2f,0.2f,0.2f);
 
-    // Common convention to take alpha from diffuse albedo.
-    litColor.a = diffuseAlbedo.a;
+	litColor.a = diffuseAlbedo.a;
 	color = litColor;
+	
+	pin.NormalW = normalize(pin.NormalW);
+	//float e = dot( mul(pin.NormalW, (float3x3)gViewProj),gLookAt);
+	
+	//if (e < 0.2f)
+		//color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+    // Common convention to take alpha from diffuse albedo.
+    
+	color = float4(mul(pin.NormalW, (float3x3)gViewProj),0.0f);
     return color;
 	//color = ambient;
 	

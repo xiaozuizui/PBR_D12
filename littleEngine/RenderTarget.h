@@ -11,7 +11,7 @@ public:
 
 
 
-public :
+public slots:
 
 	void update();
 

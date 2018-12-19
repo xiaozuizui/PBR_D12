@@ -9,11 +9,14 @@ void littlemm::LittleEngineResource::BuildRootSignature()
 	CD3DX12_ROOT_PARAMETER slotRootParameter[4];
 
 	// Create a single descriptor table of CBVs.
+
+
 	slotRootParameter[0].InitAsConstantBufferView(0);//perframe
 	slotRootParameter[1].InitAsConstantBufferView(1);//perobject
 
+
 	CD3DX12_DESCRIPTOR_RANGE texTable;//Œ∆¿Ì
-	texTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 4, 0, 0);
+	texTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 5, 0, 0);
 
 	slotRootParameter[2].InitAsDescriptorTable(1, &texTable, D3D12_SHADER_VISIBILITY_PIXEL);
 

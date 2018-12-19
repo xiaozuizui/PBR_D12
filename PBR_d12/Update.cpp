@@ -25,6 +25,9 @@ void littlemm::LittleEngineResource::Update(const GameTimer& gt)
 			CloseHandle(eventHandle);
 		}
 
+#ifdef WAVES
+		UpdateWaves(gt);
+#endif
 		// Update the constant buffer with the latest worldViewProj matrix.
 		UpdateMainPassCB(gt);
 		UpdateObjectCBs(gt);
@@ -37,6 +40,8 @@ void littlemm::LittleEngineResource::Update(const GameTimer& gt)
 
 void littlemm::LittleEngineResource::UpdateObjectCBs(const GameTimer& gt)
 {
+
+
 	auto currObjectCB = mCurrConstantResource->ObjectCB.get();
 
 	for (auto& e : mAllRitems)
@@ -86,6 +91,8 @@ void littlemm::LittleEngineResource::UpdateMainPassCB(const GameTimer& gt)
 	XMStoreFloat4x4(&mMainPassCB.ViewProj, XMMatrixTranspose(viewProj));
 	XMStoreFloat4x4(&mMainPassCB.InvViewProj, XMMatrixTranspose(invViewProj));
 	mMainPassCB.EyePosW = mCamera.GetPosition3f();
+	mMainPassCB.LookAt = mCamera.GetLook3f();
+
 	mMainPassCB.RenderTargetSize = XMFLOAT2((float)mClientWidth, (float)mClientHeight);
 	mMainPassCB.InvRenderTargetSize = XMFLOAT2(1.0f / mClientWidth, 1.0f / mClientHeight);
 	mMainPassCB.NearZ = 1.0f;
@@ -93,14 +100,28 @@ void littlemm::LittleEngineResource::UpdateMainPassCB(const GameTimer& gt)
 	mMainPassCB.TotalTime = gt.TotalTime();
 	mMainPassCB.DeltaTime = gt.DeltaTime();
 	mMainPassCB.AmbientLight = { 0.25f, 0.25f, 0.35f, 1.0f };
-	//mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
-	//mMainPassCB.Lights[0].Strength = { 0.8f, 0.8f, 0.8f };
-	//mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
-	//mMainPassCB.Lights[1].Strength = { 0.4f, 0.4f, 0.4f };
-	//mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
-	//mMainPassCB.Lights[2].Strength = { 0.2f, 0.2f, 0.2f };
+	mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
+	mMainPassCB.Lights[0].Strength = { 0.8f, 0.8f, 0.8f };
+	mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
+	mMainPassCB.Lights[1].Strength = { 0.4f, 0.4f, 0.4f };
+	mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
+	mMainPassCB.Lights[2].Strength = { 0.2f, 0.2f, 0.2f };
 
+	//auto bug =  std::to_wstring(mCamera.GetLook3f().x) + std::to_wstring(mCamera.GetLook3f().y) + std::to_wstring(mCamera.GetLook3f().z)+L'\n';
+	//OutputDebugString(bug.c_str());
 	auto currPassCB = mCurrConstantResource->frameCB.get();
+
+
+
+	//update shadow
+	
+
+
+
+
+
+	//update shadow
+
 	currPassCB->CopyData(0, mMainPassCB);
 }
 
@@ -110,8 +131,7 @@ void littlemm::LittleEngineResource::UpdateMaterialBuffer(const GameTimer& gt)
 	auto currMaterialBuffer = mCurrConstantResource->Materials.get();
 	for (auto& e : mMaterials)
 	{
-		// Only update the cbuffer data if the constants have changed.  If the cbuffer
-		// data changes, it needs to be updated for each FrameResource.
+		
 		Material* mat = e.second.get();
 		if (mat->NumFramesDirty > 0)
 		{
@@ -137,3 +157,48 @@ void littlemm::LittleEngineResource::AnimateMaterials(const GameTimer& gt)
 {
 	
 }
+
+
+#ifdef WAVES
+void LittleEngineResource::UpdateWaves(const GameTimer& gt)
+{
+	static float t_base = 0.0f;
+	
+	if ((mTimer.TotalTime() - t_base) >= 0.25f)
+	{
+		t_base += 0.25f;
+
+		int i = MathHelper::Rand(4, mWaves->RowCount() - 5);
+		int j = MathHelper::Rand(4, mWaves->ColumnCount() - 5);
+
+		float r = MathHelper::RandF(0.2f, 0.5f);
+
+		mWaves->Disturb(i, j, r);
+	}
+
+	// Update the wave simulation.
+	mWaves->Update(gt.DeltaTime());
+
+	// Update the wave vertex buffer with the new solution.
+	
+	auto currWavesVB = mCurrConstantResource->WavesVB.get();
+	for (int i = 0; i < mWaves->VertexCount(); ++i)
+	{
+		Vertex v;
+
+		v.Pos = mWaves->Position(i);
+		v.Normal = mWaves->Normal(i);
+
+		// Derive tex-coords from position by 
+		// mapping [-w/2,w/2] --> [0,1]
+		v.TexC.x = 0.5f + v.Pos.x / mWaves->Width();
+		v.TexC.y = 0.5f - v.Pos.z / mWaves->Depth();
+
+		currWavesVB->CopyData(i, v);
+	}
+
+	// Set the dynamic VB of the wave renderitem to the current frame VB.
+	mWaveRitem->Geo->VertexBufferGPU = currWavesVB->Resource();
+}
+#endif
+

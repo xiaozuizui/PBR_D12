@@ -23,6 +23,10 @@ public:
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
 
+
+signals:
+	void FlashRenderTarget();
+
 private:
 	
 	

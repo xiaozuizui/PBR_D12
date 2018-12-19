@@ -9,5 +9,17 @@ void littlemm::LittleEngineResource::BuildFrameResource()
 	{
 		mConstantResource.push_back(std::make_unique<ConstantResource>(md3dDevice.Get(),
 			1, (UINT)mAllRitems.size(), (UINT)mMaterials.size()));
+
+
 	}
+
+
+#ifdef WAVES
+	for(int i=0;i<littlemm::Setting::gNumFrameResource;i++)
+	{
+		mConstantResource[i]->SetWaves(md3dDevice.Get(), mWaves->VertexCount());
+	}
+#endif
+
+	
 }

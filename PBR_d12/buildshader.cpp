@@ -7,17 +7,29 @@ void littlemm::LittleEngineResource::BuildShadersAndInputLayout()
 {
 	HRESULT hr = S_OK;
 
+	const D3D_SHADER_MACRO defines[] =
+	{
+		"FOG", "1",
+		NULL, NULL
+	};
+
 	const D3D_SHADER_MACRO alphaTestDefines[] =
 	{
+		"FOG", "1",
 		"ALPHA_TEST", "1",
 		NULL, NULL
 	};
 
 
 
-	mvsByteCode = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "VS", "vs_5_1");
-	mpsByteCode = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "PS", "ps_5_1");
+	//mvsByteCode = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "VS", "vs_5_1");
+	//mpsByteCode = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "PS", "ps_5_1");
 
+	mShaders["standardVs"] = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "VS", "vs_5_1");
+	mShaders["standardPs"] = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", nullptr, "PS", "ps_5_1");
+
+	mShaders["opaquePS"] = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", defines, "PS", "ps_5_1");
+	mShaders["alphaTestedPS"] = d3dUtil::CompileShader(L"Shaders/littleshader.hlsl", alphaTestDefines, "PS", "ps_5_1");
 	//mInputLayout =
 	//{
 	//	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },

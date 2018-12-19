@@ -28,7 +28,7 @@ namespace littlemm
 		virtual ~LittleEngine();
 
 	public:
-
+		 
 		static LittleEngine* GetEngine();
 
 		HWND      MainWnd()const;

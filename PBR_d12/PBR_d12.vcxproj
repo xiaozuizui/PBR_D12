@@ -159,14 +159,19 @@
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GeometryGenerator.h" />
+    <ClInclude Include="macro.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="LittleEngineResource.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="reflection.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="shapes.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UploadBuffer.h" />
+    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="wave.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildDescriptorHeaps.cpp" />
@@ -177,9 +182,11 @@
     <ClCompile Include="BuildRenderingItem.cpp" />
     <ClCompile Include="BuildRootSignature.cpp" />
     <ClCompile Include="BuildShader.cpp" />
+    <ClCompile Include="BuildTestObjects.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ConstantResource.cpp" />
     <ClCompile Include="GameInit.cpp" />
+    <ClCompile Include="Layer.h" />
     <ClCompile Include="LittleEngine.cpp" />
     <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
@@ -200,6 +207,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Update.cpp" />
+    <ClCompile Include="wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PBR_d12.rc" />
@@ -213,6 +221,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\littleshader.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

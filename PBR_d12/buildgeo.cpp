@@ -1,16 +1,9 @@
 #include "stdafx.h"
 #include "LittleEngineResource.h"
 #include "GeometryGenerator.h"
+#include <unordered_map>
+#include "Vertex.h"
 
-namespace littlemm
-{
-	struct Vertex
-	{
-		XMFLOAT3 Pos;
-		XMFLOAT3 Normal;
-		XMFLOAT2 TexC;
-	};
-}
 
 
 
@@ -24,106 +17,230 @@ void littlemm::LittleEngineResource::BuildBoxGeometry()
 	GeometryGenerator::MeshData cylinder = geoGen.CreateCylinder(0.5f, 0.3f, 3.0f, 20, 20);
 
 
-	UINT boxVertexOffset = 0;
-	UINT gridVertexOffset = (UINT)box.Vertices.size();
-	UINT sphereVertexOffset = gridVertexOffset + (UINT)grid.Vertices.size();
-	UINT cylinderVertexOffset = sphereVertexOffset + (UINT)sphere.Vertices.size();
+	
 
-	// Cache the starting index for each object in the concatenated index buffer.
-	UINT boxIndexOffset = 0;
-	UINT gridIndexOffset = (UINT)box.Indices32.size();
-	UINT sphereIndexOffset = gridIndexOffset + (UINT)grid.Indices32.size();
-	UINT cylinderIndexOffset = sphereIndexOffset + (UINT)sphere.Indices32.size();
+	AddGeo("box", &box);
+	AddGeo("grid", &grid);
+	AddGeo("sphere", &sphere);
+	AddGeo("cylinder", &cylinder);
+
+#ifdef WAVES
+	//Waves(int m, int n, float dx, float dt, float speed, float damping);
+	mWaves = std::make_unique<Waves>(64, 64, 1.0f, 0.03f, 4.0f, 2.0f);
+	BuildWater();
+#endif
+	//AddGeo("box",)
+	//UINT boxVertexOffset = 0;
+	//UINT gridVertexOffset = (UINT)box.Vertices.size();
+	//UINT sphereVertexOffset = gridVertexOffset + (UINT)grid.Vertices.size();
+	//UINT cylinderVertexOffset = sphereVertexOffset + (UINT)sphere.Vertices.size();
+
+	//// Cache the starting index for each object in the concatenated index buffer.
+	//UINT boxIndexOffset = 0;
+	//UINT gridIndexOffset = (UINT)box.Indices32.size();
+	//UINT sphereIndexOffset = gridIndexOffset + (UINT)grid.Indices32.size();
+	//UINT cylinderIndexOffset = sphereIndexOffset + (UINT)sphere.Indices32.size();
 
 
-	SubmeshGeometry boxSubmesh;
-	boxSubmesh.IndexCount = (UINT)box.Indices32.size();
-	boxSubmesh.StartIndexLocation = boxIndexOffset;
-	boxSubmesh.BaseVertexLocation = boxVertexOffset;
+	//MeshGeometry boxmesh;
+	//boxmesh.
 
-	SubmeshGeometry gridSubmesh;
-	gridSubmesh.IndexCount = (UINT)grid.Indices32.size();
-	gridSubmesh.StartIndexLocation = gridIndexOffset;
-	gridSubmesh.BaseVertexLocation = gridVertexOffset;
+	//SubmeshGeometry boxSubmesh;
+	//boxSubmesh.IndexCount = (UINT)box.Indices32.size();
+	//boxSubmesh.StartIndexLocation = boxIndexOffset;
+	//boxSubmesh.BaseVertexLocation = boxVertexOffset;
 
-	SubmeshGeometry sphereSubmesh;
-	sphereSubmesh.IndexCount = (UINT)sphere.Indices32.size();
-	sphereSubmesh.StartIndexLocation = sphereIndexOffset;
-	sphereSubmesh.BaseVertexLocation = sphereVertexOffset;
+	//SubmeshGeometry gridSubmesh;
+	//gridSubmesh.IndexCount = (UINT)grid.Indices32.size();
+	//gridSubmesh.StartIndexLocation = gridIndexOffset;
+	//gridSubmesh.BaseVertexLocation = gridVertexOffset;
 
-	SubmeshGeometry cylinderSubmesh;
-	cylinderSubmesh.IndexCount = (UINT)cylinder.Indices32.size();
-	cylinderSubmesh.StartIndexLocation = cylinderIndexOffset;
-	cylinderSubmesh.BaseVertexLocation = cylinderVertexOffset;
+	//SubmeshGeometry sphereSubmesh;
+	//sphereSubmesh.IndexCount = (UINT)sphere.Indices32.size();
+	//sphereSubmesh.StartIndexLocation = sphereIndexOffset;
+	//sphereSubmesh.BaseVertexLocation = sphereVertexOffset;
 
-	//
-	// Extract the vertex elements we are interested in and pack the
-	// vertices of all the meshes into one vertex buffer.
-	//
+	//SubmeshGeometry cylinderSubmesh;
+	//cylinderSubmesh.IndexCount = (UINT)cylinder.Indices32.size();
+	//cylinderSubmesh.StartIndexLocation = cylinderIndexOffset;
+	//cylinderSubmesh.BaseVertexLocation = cylinderVertexOffset;
 
-	auto totalVertexCount =
-		box.Vertices.size() +
-		grid.Vertices.size() +
-		sphere.Vertices.size() +
-		cylinder.Vertices.size();
+	////
+	//// Extract the vertex elements we are interested in and pack the
+	//// vertices of all the meshes into one vertex buffer.
+	////
 
-	std::vector<Vertex> vertices(totalVertexCount);
+	//auto totalVertexCount =
+	//	box.Vertices.size() +
+	//	grid.Vertices.size() +
+	//	sphere.Vertices.size() +
+	//	cylinder.Vertices.size();
+
+	//std::vector<Vertex> vertices(totalVertexCount);
+
+	//UINT k = 0;
+	//for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
+	//{
+	//	vertices[k].Pos = box.Vertices[i].Position;
+	//	//vertices[k].Color = XMFLOAT4(Colors::White);
+	//	vertices[k].Normal = box.Vertices[i].Normal;
+	//	vertices[k].TexC = box.Vertices[i].TexC;
+	//}
+
+	//for (size_t i = 0; i < grid.Vertices.size(); ++i, ++k)
+	//{
+	//	vertices[k].Pos = grid.Vertices[i].Position;
+	//	vertices[k].Normal = grid.Vertices[i].Normal;
+	//	//vertices[k].Color = XMFLOAT4(Colors::Red);
+	//	vertices[k].TexC = grid.Vertices[i].TexC;
+	//}
+
+	//for (size_t i = 0; i < sphere.Vertices.size(); ++i, ++k)
+	//{
+	//	vertices[k].Pos = sphere.Vertices[i].Position;
+	//	//vertices[k].Color = XMFLOAT4(Colors::Blue);
+	//	vertices[k].Normal = sphere.Vertices[i].Normal;
+	//	vertices[k].TexC = sphere.Vertices[i].TexC;
+	//}
+
+	//for (size_t i = 0; i < cylinder.Vertices.size(); ++i, ++k)
+	//{
+	//	vertices[k].Pos = cylinder.Vertices[i].Position;
+	//	vertices[k].Normal = cylinder.Vertices[i].Normal;
+	//	//vertices[k].Color = XMFLOAT4(Colors::Yellow);
+	//	vertices[k].TexC = cylinder.Vertices[i].TexC;
+	//}
+
+	//std::vector<std::uint16_t> indices;
+	//indices.insert(indices.end(), std::begin(box.GetIndices16()), std::end(box.GetIndices16()));
+	//indices.insert(indices.end(), std::begin(grid.GetIndices16()), std::end(grid.GetIndices16()));
+	//indices.insert(indices.end(), std::begin(sphere.GetIndices16()), std::end(sphere.GetIndices16()));
+	//indices.insert(indices.end(), std::begin(cylinder.GetIndices16()), std::end(cylinder.GetIndices16()));
+
+	//const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
+	//const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
+
+	//auto geo = std::make_unique<MeshGeometry>();
+	//geo->Name = "shapeGeo";
+
+
+	////顶点与面表上传
+	//ThrowIfFailed(D3DCreateBlob(vbByteSize, &geo->VertexBufferCPU));
+	//CopyMemory(geo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
+
+	//ThrowIfFailed(D3DCreateBlob(ibByteSize, &geo->IndexBufferCPU));
+	//CopyMemory(geo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
+
+	//geo->VertexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice.Get(),
+	//	mCommandList.Get(), vertices.data(), vbByteSize, geo->VertexBufferUploader);
+
+	//geo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice.Get(),
+	//	mCommandList.Get(), indices.data(), ibByteSize, geo->IndexBufferUploader);
+
+	//geo->VertexByteStride = sizeof(Vertex);
+	//geo->VertexBufferByteSize = vbByteSize;
+	//geo->IndexFormat = DXGI_FORMAT_R16_UINT;
+	//geo->IndexBufferByteSize = ibByteSize;
+
+	//geo->DrawArgs["box"] = boxSubmesh;
+	//geo->DrawArgs["grid"] = gridSubmesh;
+	//geo->DrawArgs["sphere"] = sphereSubmesh;
+	//geo->DrawArgs["cylinder"] = cylinderSubmesh;
+
+	//mGeometries[geo->Name] = std::move(geo);
+}
+
+
+void littlemm::LittleEngineResource::AddGeo(std::string name,GeometryGenerator::MeshData* meshdata)
+{
+
+
+	
+	std::vector<Vertex> vertices(meshdata->Vertices.size());
 
 	UINT k = 0;
-	for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
+	for (size_t i = 0; i < meshdata->Vertices.size(); ++i, ++k)
 	{
-		vertices[k].Pos = box.Vertices[i].Position;
-		//vertices[k].Color = XMFLOAT4(Colors::White);
-		vertices[k].Normal = box.Vertices[i].Normal;
-		vertices[k].TexC = box.Vertices[i].TexC;
+		vertices[k].Pos = meshdata->Vertices[i].Position;
+		vertices[k].Normal = meshdata->Vertices[i].Normal;
+		vertices[k].TexC = meshdata->Vertices[i].TexC;
 	}
 
-	for (size_t i = 0; i < grid.Vertices.size(); ++i, ++k)
-	{
-		vertices[k].Pos = grid.Vertices[i].Position;
-		vertices[k].Normal = grid.Vertices[i].Normal;
-		//vertices[k].Color = XMFLOAT4(Colors::Red);
-		vertices[k].TexC = grid.Vertices[i].TexC;
-	}
+	//std::vector<std::uint16_t> indices;
+	//indices.insert(indices.end(), std::begin(meshdata.GetIndices16()), std::end(meshdata.GetIndices16()));
 
-	for (size_t i = 0; i < sphere.Vertices.size(); ++i, ++k)
-	{
-		vertices[k].Pos = sphere.Vertices[i].Position;
-		//vertices[k].Color = XMFLOAT4(Colors::Blue);
-		vertices[k].Normal = sphere.Vertices[i].Normal;
-		vertices[k].TexC = sphere.Vertices[i].TexC;
-	}
-
-	for (size_t i = 0; i < cylinder.Vertices.size(); ++i, ++k)
-	{
-		vertices[k].Pos = cylinder.Vertices[i].Position;
-		vertices[k].Normal = cylinder.Vertices[i].Normal;
-		//vertices[k].Color = XMFLOAT4(Colors::Yellow);
-		vertices[k].TexC = cylinder.Vertices[i].TexC;
-	}
-
-	std::vector<std::uint16_t> indices;
-	indices.insert(indices.end(), std::begin(box.GetIndices16()), std::end(box.GetIndices16()));
-	indices.insert(indices.end(), std::begin(grid.GetIndices16()), std::end(grid.GetIndices16()));
-	indices.insert(indices.end(), std::begin(sphere.GetIndices16()), std::end(sphere.GetIndices16()));
-	indices.insert(indices.end(), std::begin(cylinder.GetIndices16()), std::end(cylinder.GetIndices16()));
 
 	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
-	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
+	const UINT ibByteSize = (UINT)meshdata->GetIndices16().size() * sizeof(std::uint16_t);
 
 	auto geo = std::make_unique<MeshGeometry>();
-	geo->Name = "shapeGeo";
+	//MeshGeometry geo;
+	geo->Meshdata = std::make_unique<GeometryGenerator::MeshData>(*meshdata);
 
-
-	//顶点与面表上传
 	ThrowIfFailed(D3DCreateBlob(vbByteSize, &geo->VertexBufferCPU));
 	CopyMemory(geo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
 
 	ThrowIfFailed(D3DCreateBlob(ibByteSize, &geo->IndexBufferCPU));
-	CopyMemory(geo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
+	CopyMemory(geo->IndexBufferCPU->GetBufferPointer(), meshdata->GetIndices16().data(), ibByteSize);
 
 	geo->VertexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice.Get(),
 		mCommandList.Get(), vertices.data(), vbByteSize, geo->VertexBufferUploader);
+
+	geo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice.Get(),
+		mCommandList.Get(), meshdata->GetIndices16().data(), ibByteSize, geo->IndexBufferUploader);
+
+
+	geo->VertexByteStride = sizeof(Vertex);
+	geo->VertexBufferByteSize = vbByteSize;
+	geo->IndexFormat = DXGI_FORMAT_R16_UINT;
+	geo->IndexBufferByteSize = ibByteSize;
+
+	geo->IndexCount = meshdata->Indices32.size();
+	geo->Name = name;
+
+
+	mGeometries[geo->Name] = std::move(geo);
+}
+
+#ifdef WAVES
+void littlemm::LittleEngineResource::BuildWater()
+{
+	
+	std::vector<std::uint16_t> indices(3 * mWaves->TriangleCount()); // 3 indices per face
+	assert(mWaves->VertexCount() < 0x0000ffff);
+
+	// Iterate over each quad.
+	int m = mWaves->RowCount();
+	int n = mWaves->ColumnCount();
+	int k = 0;
+	for (int i = 0; i < m - 1; ++i)
+	{
+		for (int j = 0; j < n - 1; ++j)
+		{
+			indices[k] = i * n + j;
+			indices[k + 1] = i * n + j + 1;
+			indices[k + 2] = (i + 1)*n + j;
+
+			indices[k + 3] = (i + 1)*n + j;
+			indices[k + 4] = i * n + j + 1;
+			indices[k + 5] = (i + 1)*n + j + 1;
+
+			k += 6; // next quad
+		}
+	}
+
+	UINT vbByteSize = mWaves->VertexCount() * sizeof(Vertex);
+	UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
+
+	auto geo = std::make_unique<MeshGeometry>();
+	geo->Name = "waterGeo";
+
+	// Set dynamically.
+	geo->VertexBufferCPU = nullptr;
+	geo->VertexBufferGPU = nullptr;
+
+	ThrowIfFailed(D3DCreateBlob(ibByteSize, &geo->IndexBufferCPU));
+	CopyMemory(geo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
 
 	geo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice.Get(),
 		mCommandList.Get(), indices.data(), ibByteSize, geo->IndexBufferUploader);
@@ -132,15 +249,15 @@ void littlemm::LittleEngineResource::BuildBoxGeometry()
 	geo->VertexBufferByteSize = vbByteSize;
 	geo->IndexFormat = DXGI_FORMAT_R16_UINT;
 	geo->IndexBufferByteSize = ibByteSize;
-
-	geo->DrawArgs["box"] = boxSubmesh;
-	geo->DrawArgs["grid"] = gridSubmesh;
-	geo->DrawArgs["sphere"] = sphereSubmesh;
-	geo->DrawArgs["cylinder"] = cylinderSubmesh;
+	geo->IndexCount = (UINT)indices.size();
+	
 
 	mGeometries[geo->Name] = std::move(geo);
-}
+	//geo->DrawArgs["grid"] = submesh;
 
+	//mGeometries["waterGeo"] = std::move(geo);
+}
+#endif
 
 //void PBRD12::BuildBoxGeometry()
 //{

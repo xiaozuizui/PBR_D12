@@ -1,8 +1,11 @@
 #pragma once
 
 #include "UploadBuffer.h"
+#include "macro.h"
+#include "Vertex.h"
 
 
+using namespace littlemm;
 struct MaterialData
 {
 	DirectX::XMFLOAT4 DiffuseAlbedo = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -18,7 +21,7 @@ struct MaterialData
 	UINT MaterialPad2;
 };
 
-struct ConstantsPerObject
+struct  ConstantsPerObject
 {
 	DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
 	DirectX::XMFLOAT4X4 TexTransform = MathHelper::Identity4x4();
@@ -39,7 +42,11 @@ struct ConstantsPerFrame
 	DirectX::XMFLOAT4X4 InvViewProj = MathHelper::Identity4x4();
 
 	DirectX::XMFLOAT3 EyePosW = { 0.0f, 0.0f, 0.0f };
+	float cbPerObjectPad0 = 0.0f;
+	DirectX::XMFLOAT3 LookAt = { 0.0f,0.0f,0.0f };
 	float cbPerObjectPad1 = 0.0f;
+
+
 	DirectX::XMFLOAT2 RenderTargetSize = { 0.0f, 0.0f };
 	DirectX::XMFLOAT2 InvRenderTargetSize = { 0.0f, 0.0f };
 	float NearZ = 0.0f;
@@ -53,7 +60,7 @@ struct ConstantsPerFrame
 	// indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
 	// indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
 	// are spot lights for a maximum of MaxLights per object.
-	//Light Lights[MaxLights];
+	Light Lights[MaxLights];
 };
 
 struct ConstantResource
@@ -72,6 +79,14 @@ struct ConstantResource
 
 	std::unique_ptr<UploadBuffer<MaterialData>> Materials = nullptr;
 	int Fence = 0;
+
+#ifdef WAVES
+	std::unique_ptr<UploadBuffer<Vertex>> WavesVB = nullptr;
+	void SetWaves(ID3D12Device* device, UINT  waveVertCount)
+	{
+		WavesVB = std::make_unique<UploadBuffer<Vertex>>(device, waveVertCount, false);
+	}
+#endif
 
 	~ConstantResource();
 };
